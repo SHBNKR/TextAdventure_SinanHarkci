@@ -1,15 +1,19 @@
 package com.company;
 
 
+import com.company.model.datatypes.Adventure;
+import com.google.gson.Gson;
+
 import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
     //    TextAdventure adventure = new TextAdventure();
     //    adventure.startTextAdventure();
 
-        System.out.println("Das TextAdventure startet.... ... .. .");
+         System.out.println("Das TextAdventure startet.... ... .. .");
         System.out.println("X: stellt deine aktuelle Standorte dar");
         System.out.println("o: stellt die noch möglichen Standorte dar");
         System.out.println("Bewege dich mit den Pfeiltasten um in eine Richtung zu laufen");
@@ -19,8 +23,15 @@ public class Main {
 
         direction(3);
 
+        Adventure test = new Adventure( "test1", 15, 35);
 
-}
+        Gson gson = new Gson();
+
+
+
+
+
+    }
     public static void direction(int i){
         //rechts
         if(i == 1){
@@ -32,10 +43,11 @@ public class Main {
         }
         //unten
         else if(i==3){
-            System.out.print("Indiana Jones läuft Richtung Süden: .... \\U+2193 ");
+            System.out.print("Indiana Jones läuft Richtung Süden: .... ");
         }
-
-
+        else if(i==4){
+            System.out.println("Indiana Jones läuft nach Norden: ... ");
+        }
     }
 
 
