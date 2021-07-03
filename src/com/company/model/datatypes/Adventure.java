@@ -9,14 +9,25 @@ public class Adventure {
     private final String titel;
     private int countperplay;
     private int countpermove;
+    private int row;
+    private int column;
+
+    public void setMap(String[][] map) {
+        Map = map;
+    }
+
+    private String[][] Map;
 
 
 
-    public Adventure(String titel, int countperplay, int countpermove ){
+    public Adventure(String titel, int countperplay, int countpermove, int row, int column){
         ID = uniqueId.incrementAndGet();
         this.titel = titel;
         this.countperplay = countperplay;
         this.countpermove = countpermove;
+        this.row = row;
+        this.column = column;
+        Map = new String[row][column];
     }
 
 
@@ -31,7 +42,6 @@ public class Adventure {
     public int getCountperplay() {
         return countperplay;
     }
-
     public void setCountperplay(int countperplay) {
         this.countperplay = countperplay;
     }
@@ -39,8 +49,14 @@ public class Adventure {
     public int getCountpermove() {
         return countpermove;
     }
-
     public void setCountpermove(int countpermove) {
         this.countpermove = countpermove;
+    }
+
+    public int getRows(){ return row; }
+    public int getColums() { return column; }
+
+    public String[][] getMap() {
+        return Map;
     }
 }
