@@ -82,8 +82,8 @@ public class View {
         return "Das Spielfeld hat: " + rows + " Reihen & " + columns + " Zeilen";
     }
 
-    //draws the clear map
-    public static void drawMap(int rows, int columns) {
+    //draws the clear map with x & y
+    public void drawMap(int rows, int columns) {
         String[][] map;
         for(int i=0; i<rows; i++){
             for(int o=0; o<columns; o++){
@@ -93,6 +93,37 @@ public class View {
         }
 
     }
+
+
+    public void showAddTextAdventureMask(){
+        System.out.println("---- Sie möchten ein TextAdventure hinzufügen: ");
+        BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
+        System.out.println("Bitte geben Sie ihrem TextAdenvture einen Titel: ");
+
+        System.out.println("Bitte geben Sie die Anzahl ihrer Reihen an: ");
+
+        System.out.println("Bitte geben Sie die Anzahl ihrer Spalten an: ");
+
+        System.out.println("Bitte bestimmen Sie den Startpunkt Ihres Spiels");
+
+        System.out.println("Bitte fügen Sie ihrem TextAdventure Standortnamen hinzu: ");
+        //Input Zweidimensionales Array über key mit String verbinden
+
+        System.out.println("Möchten Sie Ihr TextAdventure freigeben?: ");
+        //boolean freigabe setzen & jenachdem in Übersicht ausblenden
+
+        System.out.println("...... laden ... .. ...");
+        System.out.println("Das TextAdventure mit dem Titel wurde erstellt:");
+        System.out.println("Sinan Harkci wünscht Ihnen Viel Spaß beim spielen");
+    }
+
+    public String showSeachTextAdventureMask() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Bitte geben Sie den Titel des TextAdventure an zum suchen: ");
+
+        return br.readLine();
+    }
+
 
 
 }

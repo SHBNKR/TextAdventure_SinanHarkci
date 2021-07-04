@@ -12,12 +12,11 @@ public class Adventure {
     private int row;
     private int column;
 
-    public void setMap(String[][] map) {
-        Map = map;
+    public int[][] getMap() {
+        return map;
     }
 
-    private String[][] Map;
-
+    private int[][] map;
 
 
     public Adventure(String titel, int countperplay, int countpermove, int row, int column){
@@ -27,7 +26,7 @@ public class Adventure {
         this.countpermove = countpermove;
         this.row = row;
         this.column = column;
-        Map = new String[row][column];
+        this.map = new int[row][column];
     }
 
 
@@ -56,7 +55,5 @@ public class Adventure {
     public int getRows(){ return row; }
     public int getColums() { return column; }
 
-    public String[][] getMap() {
-        return Map;
-    }
+
 }
