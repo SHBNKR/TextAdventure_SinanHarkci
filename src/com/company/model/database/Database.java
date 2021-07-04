@@ -1,8 +1,10 @@
 package com.company.model.database;
 
+import com.company.controller.TextAdventure;
 import com.company.model.datatypes.Adventure;
 import com.company.model.user.Admin;
 import com.company.model.user.Gamer;
+import com.google.gson.JsonArray;
 
 import java.util.ArrayList;
 

@@ -23,9 +23,18 @@ public class View {
         return 0;
     }
 
-    public static int showAdminMask(){
+    //Admin Menü
+    public static int showAdminMask() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return 0;
+
+        System.out.println("Du bist als Admin eingeloggt:");
+        System.out.println("---- 1.) Ein TextAdventure erstellen ---");
+        System.out.println("---- 2.) In die Statistiken einsehen ---");
+
+        try {
+            return Integer.parseInt(br.readLine());
+        } catch(NumberFormatException | IOException e){}
+            return 0;
     }
 
     public static String[] showLoginMask() throws IOException {

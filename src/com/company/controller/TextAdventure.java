@@ -32,6 +32,8 @@ public class TextAdventure {
                 if(credentials[0].equals(Admin.getUsername())){
                     if(Database.checkPassword(credentials[1], true)) {
                         handleAdminMenu(View.showAdminMask());
+                    } else {
+
                     }
                 }
                 break;
@@ -48,7 +50,10 @@ public class TextAdventure {
 
    //
    private void handleAdminMenu(int i) throws IOException {
+        //add TextAdventure
+        if(i == 1){
 
+        }
    }
 
    private void searchForTextAdventure(String titel) throws IOException{
@@ -57,4 +62,6 @@ public class TextAdventure {
 
 
    }
+
+
 }
