@@ -1,14 +1,19 @@
 package com.company.controller;
 
 import com.company.model.database.Database;
+import com.company.model.datatypes.Adventure;
 import com.company.model.user.Admin;
 import com.company.view.View;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class TextAdventure {
+
+    private Adventure adventure;
 
     public void startTextAdventure() throws IOException {
         handleUserInputFromStart(View.showInitialMenu());
@@ -33,7 +38,7 @@ public class TextAdventure {
                     if(Database.checkPassword(credentials[1], true)) {
                         handleAdminMenu(View.showAdminMask());
                     } else {
-
+                        handleLoginError();
                     }
                 }
                 break;
@@ -48,13 +53,35 @@ public class TextAdventure {
 
    }
 
-   //
-   private void handleAdminMenu(int i) throws IOException {
-        //add TextAdventure
-        if(i == 1){
+    private void handleLoginError() throws IOException {
 
+        if(View.showLoginError().equals("t")) {
+            handleUserInputFromStart(3);
+        } else{
+            startTextAdventure();
         }
+    }
+
+    //
+   private void handleAdminMenu(int i) throws IOException {
+       //add TextAdventure
+       if (i == 1) {
+           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+           Adventure createAdventure = View.showAddTextAdventureMask();
+           View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
+           String richtung = br.readLine().trim();
+           if(richtung.equals("osten")){
+               createAdventure.setStartPosY(createAdventure.getStartPosY()+1);  //verschiebung um 1 nach rechts, but y+1?
+           }
+           View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
+
+       }
+       //show statistics
+       else if (i == 2) {
+
+       }
    }
+
 
    private void searchForTextAdventure(String titel) throws IOException{
         titel = titel.substring(0,1).toUpperCase() + titel.substring(1);

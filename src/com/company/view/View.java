@@ -1,8 +1,13 @@
 package com.company.view;
 
+import com.company.model.datatypes.Adventure;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import static java.lang.Boolean.parseBoolean;
+import static java.lang.Integer.parseInt;
 
 public class View {
 
@@ -15,7 +20,7 @@ public class View {
         System.out.println("---- 4.) In der Anwendung registrieren ---");
 
         try{
-            return Integer.parseInt(br.readLine());
+            return parseInt(br.readLine());
         } catch(NumberFormatException nfe){
             System.exit(0);
         }
@@ -32,7 +37,7 @@ public class View {
         System.out.println("---- 2.) In die Statistiken einsehen ---");
 
         try {
-            return Integer.parseInt(br.readLine());
+            return parseInt(br.readLine());
         } catch(NumberFormatException | IOException e){}
             return 0;
     }
@@ -70,6 +75,7 @@ public class View {
 
 
     public static int showSelectedDircectionOutput(int i) {
+        // rechts
         if(i == 1){
             System.out.println("Indiana Jones läuft Richtung Osten: -->....");
         }
@@ -81,49 +87,80 @@ public class View {
         else if(i==3){
             System.out.print("Indiana Jones läuft Richtung Süden: .... ");
         }
+        //oben
         else if(i==4){
             System.out.println("Indiana Jones läuft nach Norden: ... ");
         }
         return 0;
     }
 
+    public static String showLoginError() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.err.println("Falscher username oder password! Tippe (t) um es erneut zu probieren oder etwas anderes um zurück zu kehren");
+        return br.readLine();
+    }
+
     public String showMapSize(int rows, int columns){
         return "Das Spielfeld hat: " + rows + " Reihen & " + columns + " Zeilen";
     }
 
+
+
     //draws the clear map with x & y
-    public void drawMap(int rows, int columns) {
-        String[][] map;
+    public static void drawMap(int rows, int columns, int startPosX, int startPosY, String[][] locationNames) {
+        //prints the locationnames
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print("Standort: [" + i + ";" + j + "] => " +  locationNames[i][j]);
+                System.out.print("\t");
+            }
+            System.out.println();
+        }
+        //prints the Map
         for(int i=0; i<rows; i++){
             for(int o=0; o<columns; o++){
+                if(i == startPosX && o == startPosY)
+                    System.out.print("| X |");
+                else
                 System.out.print("| o |");
             }
-            System.out.println("");
+            System.out.println();
         }
-
+        System.out.println("Startpunkt: " + locationNames[startPosX][startPosY]);
     }
 
-
-    public void showAddTextAdventureMask(){
-        System.out.println("---- Sie möchten ein TextAdventure hinzufügen: ");
+    public static Adventure showAddTextAdventureMask() throws IOException {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
-        System.out.println("Bitte geben Sie ihrem TextAdenvture einen Titel: ");
 
+        System.out.println("---- Sie möchten ein TextAdventure hinzufügen: ");
+        System.out.println("Bitte geben Sie ihrem TextAdventure einen Titel: ");
+        String titel = br.readLine();
+        System.out.println("---- Die Größe des Spielfeldes wird durch ein X * Y Feld erstellt!  ---");
         System.out.println("Bitte geben Sie die Anzahl ihrer Reihen an: ");
-
+        int rows = parseInt(br.readLine());
         System.out.println("Bitte geben Sie die Anzahl ihrer Spalten an: ");
-
+        int colums = parseInt(br.readLine());
         System.out.println("Bitte bestimmen Sie den Startpunkt Ihres Spiels");
-
+        int startPosX = parseInt(br.readLine());
+        int startPosY = parseInt(br.readLine());
         System.out.println("Bitte fügen Sie ihrem TextAdventure Standortnamen hinzu: ");
         //Input Zweidimensionales Array über key mit String verbinden
-
-        System.out.println("Möchten Sie Ihr TextAdventure freigeben?: ");
+        String[][] locationNames = new String[rows][colums];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < colums; j++) {
+                locationNames[i][j] = br.readLine();
+            }
+        }
+        System.out.println("Möchten Sie Ihr TextAdventure freigeben?: (true) oder (false) ");
         //boolean freigabe setzen & jenachdem in Übersicht ausblenden
-
+        boolean isActiveTextAdventure = parseBoolean(br.readLine());
         System.out.println("...... laden ... .. ...");
-        System.out.println("Das TextAdventure mit dem Titel wurde erstellt:");
+        System.out.println("Das TextAdventure mit dem Titel: " + titel + " wurde erstellt:");
         System.out.println("Sinan Harkci wünscht Ihnen Viel Spaß beim spielen");
+
+        //  return new String[]{titel, String.valueOf(rows), String.valueOf(colums), String.valueOf(startPosX), String.valueOf(startPosY), String.valueOf(isActiveTextAdventure),};
+        return new Adventure(titel , rows,  colums,  startPosX,  startPosY,  isActiveTextAdventure, locationNames);
     }
 
     public String showSeachTextAdventureMask() throws IOException{
