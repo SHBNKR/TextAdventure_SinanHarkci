@@ -18,7 +18,6 @@ public class View {
         System.out.println("---- 2.) TextAdventure Übersicht anzeigen ---");
         System.out.println("---- 3.) In der Anwendung anmelden ---");
         System.out.println("---- 4.) In der Anwendung registrieren ---");
-
         try{
             return parseInt(br.readLine());
         } catch(NumberFormatException nfe){
@@ -28,7 +27,36 @@ public class View {
         return 0;
     }
 
-    //Admin Menü
+    // [1]: Nach TextAdventure suchen
+    public static String searchTextAdventureMask() throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("[1]: Sie möchten nach einem TextAdventure suchen \n"
+                + "Geben Sie den Titel in die Konsoleneingabe ein: ");
+
+        return br.readLine();
+    }
+
+    public static String showSearchTextAdventureMask() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Tippen Sie den Titel zum suchen ein: ");
+        return br.readLine();
+    }
+
+    // [2]: TextAdventure Übersicht anzeigen
+    public static String showTextAdventureOverViewMask() throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("[2]: Sie möchten eine Übersicht der TextAdventure's erhalten");
+        String searchTextAdventure = View.showSearchTextAdventureMask();
+        searchTextAdventure = searchTextAdventure.substring(0,1).toUpperCase() + searchTextAdventure.substring(1).toLowerCase();
+        System.out.println(searchTextAdventure);
+
+        return br.readLine();
+
+    }
+
+    // [3]: Eingeloggt Menü:
     public static int showAdminMask() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -42,6 +70,7 @@ public class View {
             return 0;
     }
 
+    // [3]: login
     public static String[] showLoginMask() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("[3]: Sie möchten sich einloggen \n" + "Bitte geben Sie Ihren Usernamen ein: ");
@@ -53,84 +82,8 @@ public class View {
         return new String[]{username, password};
     }
 
-    public static String showSearchedTextAdventureMask() throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-       System.out.println("Tippen Sie den Titel zum suchen ein: ");
-        return br.readLine();
-    }
-
-
-    public static int showStartTextAdventureMenu(int i){
-        if(i == 1) {
-            System.out.println("Das TextAdventure startet.... ... .. .");
-            System.out.println("X: stellt deinen aktuellen Standort dar");
-            System.out.println("o: stellt die noch möglichen Standorte dar");
-            System.out.println("Bewege dich mit den Pfeiltasten um in eine Richtung zu laufen");
-            System.out.println("| X | o | o |");
-            System.out.println("| o | o | o |");
-            System.out.println("| o | o | o |");
-        }
-        return 0;
-    }
-
-
-    public static int showSelectedDircectionOutput(int i) {
-        // rechts
-        if(i == 1){
-            System.out.println("Indiana Jones läuft Richtung Osten: -->....");
-        }
-        //links
-        else if(i==2){
-            System.out.println("Indiana Jones bewegt sich Richtung Westen: ....<-- ");
-        }
-        //unten
-        else if(i==3){
-            System.out.print("Indiana Jones läuft Richtung Süden: .... ");
-        }
-        //oben
-        else if(i==4){
-            System.out.println("Indiana Jones läuft nach Norden: ... ");
-        }
-        return 0;
-    }
-
-    public static String showLoginError() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        System.err.println("Falscher username oder password! Tippe (t) um es erneut zu probieren oder etwas anderes um zurück zu kehren");
-        return br.readLine();
-    }
-
-    public String showMapSize(int rows, int columns){
-        return "Das Spielfeld hat: " + rows + " Reihen & " + columns + " Zeilen";
-    }
-
-
-
-    //draws the clear map with x & y
-    public static void drawMap(int rows, int columns, int startPosX, int startPosY, String[][] locationNames) {
-        //prints the locationnames
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                System.out.print("Standort: [" + i + ";" + j + "] => " +  locationNames[i][j]);
-                System.out.print("\t");
-            }
-            System.out.println();
-        }
-        //prints the Map
-        for(int i=0; i<rows; i++){
-            for(int o=0; o<columns; o++){
-                if(i == startPosX && o == startPosY)
-                    System.out.print("| X |");
-                else
-                System.out.print("| o |");
-            }
-            System.out.println();
-        }
-        System.out.println("Startpunkt: " + locationNames[startPosX][startPosY]);
-    }
-
-    public static Adventure showAddTextAdventureMask() throws IOException {
+    // [3]: TextAdventure erstellen
+    public static Adventure showCreateTextAdventureMask() throws IOException {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
 
         System.out.println("---- Sie möchten ein TextAdventure hinzufügen: ");
@@ -163,11 +116,118 @@ public class View {
         return new Adventure(titel , rows,  colums,  startPosX,  startPosY,  isActiveTextAdventure, locationNames);
     }
 
-    public String showSeachTextAdventureMask() throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Bitte geben Sie den Titel des TextAdventure an zum suchen: ");
+    public static int showTextAdventureStatisticsMask() throws IOException {
 
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("[3]: TextAdventure Statistiken anzeigen: \n Tippe [1] um einzusehen wie viele Spieler dein TextAdventure schon gespielt haben:  \n  Tippe [2] um einzusehen wie viele Züge durchschnittlich auf deinem TextAdventure gemacht wurde: ");
+        return parseInt(br.readLine());
+    }
+
+
+    // [4]: registrieren
+    public static String[] showUserRegisterMask() throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("[4]: Sie möchten sich registrieren \n" + "Bitte geben Sie Ihren gewünschten Usernamen ein: ");
+        String username = br.readLine();
+        System.out.println("[4]: Bitte geben Sie Ihr gewünschtes Passwort ein: ");
+        String passwort = br.readLine();
+
+        return new String[]{username, passwort};
+
+    }
+
+
+    // placeholder
+    public static int showStartTextAdventureMenu(int i){
+        if(i == 1) {
+            System.out.println("Das TextAdventure startet.... ... .. .");
+            System.out.println("X: stellt deinen aktuellen Standort dar");
+            System.out.println("o: stellt die noch möglichen Standorte dar");
+            System.out.println("Bewege dich mit den Pfeiltasten um in eine Richtung zu laufen");
+            System.out.println("| X | o | o |");
+            System.out.println("| o | o | o |");
+            System.out.println("| o | o | o |");
+        }
+        return 0;
+    }
+
+
+    //play TextAdventure
+
+    //Richtung einlesen
+    public static String showSelectedDirectionOutput() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String richtung = br.readLine().trim();
+        // rechts
+        if(richtung.equals("osten")){
+            System.out.println("Indiana Jones läuft Richtung Osten: -->....");
+        }
+        //links
+        else if(richtung.equals("westen")){
+            System.out.println("Indiana Jones bewegt sich Richtung Westen: ....<-- ");
+        }
+        //unten
+        else if(richtung.equals("süden")){
+            System.out.print("Indiana Jones läuft Richtung Süden: .... ");
+        }
+        //oben
+        else if(richtung.equals("norden")){
+            System.out.println("Indiana Jones läuft nach Norden: ... ");
+        }
+        return "";
+    }
+
+    //Error's & Exceptions
+
+    public static String showLoginError() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.err.println("Falscher username oder password! Tippe (t) um es erneut zu probieren oder etwas anderes um zurück zu kehren");
         return br.readLine();
+    }
+
+
+
+
+    //SideStuff:
+
+    public String showMapSize(int rows, int columns){
+        return "Das Spielfeld hat: " + rows + " Reihen & " + columns + " Zeilen";
+    }
+
+
+
+    //draws the clear map with x & y
+    public static void drawMap(int rows, int columns, int startPosX, int startPosY, String[][] locationNames) {
+        //prints the locationnames
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print("Standort: [" + i + ";" + j + "] => " +  locationNames[i][j]);
+                System.out.print("\t");
+            }
+            System.out.println();
+        }
+        //prints the Map
+        for(int i=0; i<rows; i++){
+            for(int o=0; o<columns; o++){
+                if(i == startPosX && o == startPosY)
+                    System.out.print("| X |");
+                else
+                System.out.print("| o |");
+            }
+            System.out.println();
+        }
+        System.out.println("Startpunkt: " + locationNames[startPosX][startPosY]);
+    }
+
+
+    public static void showExitApplication(){
+        System.out.println("[0]: Sie möchten die Anwendung beenden \n" + "Vielen Dank & Aufwiedersehen");
+
+        System.exit(0);
+
     }
 
 

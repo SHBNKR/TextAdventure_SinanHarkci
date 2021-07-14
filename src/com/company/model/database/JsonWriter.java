@@ -1,5 +1,6 @@
 package com.company.model.database;
 
+import com.company.model.datatypes.Adventure;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -8,13 +9,17 @@ import java.io.IOException;
 
 public class JsonWriter {
 
-    public static boolean writeAdventureFileToSystem(JsonArray adventuresToWriteToJSON){
+    public static boolean writeAdventureFileToSystem(Adventure adventureToWriteToJSON){
         //creates a file with a given title string
-        try(FileWriter file = new FileWriter("adventures.json")){
+        try(FileWriter file = new FileWriter("adventure.json")){
             JsonObject jsonObject = new JsonObject();
-            jsonObject.add("adventures", adventuresToWriteToJSON);
+
+
+
+
 
             file.write(jsonObject.toString());
+            System.out.println("TextAdventure was successfully added");
 
             return true;
 

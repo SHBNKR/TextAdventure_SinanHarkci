@@ -1,12 +1,12 @@
 package com.company.model.database;
 
-import com.company.controller.TextAdventure;
 import com.company.model.datatypes.Adventure;
+import com.company.model.datatypes.Adventures;
 import com.company.model.user.Admin;
 import com.company.model.user.Gamer;
 import com.google.gson.JsonArray;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class Database {
 
@@ -20,6 +20,17 @@ public class Database {
     //singleton pattern
 
     Adventure adventure;
+    Adventures adventures;
+
+
+    public void addTextAdventure(Adventure adventure){
+
+        JsonArray textAdventureToJSON = new JsonArray();
+
+
+        JsonWriter.writeAdventureFileToSystem(adventure);
+
+    }
 
 
 
@@ -31,6 +42,21 @@ public class Database {
             return password.equals(Gamer.getPassword());
         }
     }
+
+    public void getTextAdventureTitlesAsStrings(){
+
+        try{
+
+            adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
+            adventures.adventures.get(0).values();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            //no file
+        }
+    }
+
+
 
 
 }

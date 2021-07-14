@@ -5,33 +5,29 @@ import com.company.model.datatypes.Adventure;
 import com.company.model.user.Admin;
 import com.company.view.View;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class TextAdventure {
 
     private Adventure adventure;
 
+    //starts the application
     public void startTextAdventure() throws IOException {
         handleUserInputFromStart(View.showInitialMenu());
     }
 
-    //handle Input from user
+    //main menu
    private void handleUserInputFromStart(int input) throws IOException{
         switch(input){
+            //[1]: search for TA
             case(1):
-                System.out.println("[1]: Sie möchten nach einem TextAdventure suchen \n"
-                        + "Geben Sie den Titel in die Konsoleneingabe ein: ");
+                    handleSearchTextAdventureMask(View.showSearchTextAdventureMask());
                 break;
+            //[2]: show TA Overview
             case(2):
-                System.out.println("[2]: Sie möchten eine Übersicht der TextAdventur's erhalten");
-                String searchTextAdventure = View.showSearchedTextAdventureMask();
-                searchTextAdventure = searchTextAdventure.substring(0,1).toUpperCase() + searchTextAdventure.substring(1).toLowerCase();
-                System.out.println(searchTextAdventure);
+                    handleTextAdventureOverviewMask();
                 break;
+            //[3]: login & after
             case(3):
                 String[] credentials = View.showLoginMask();
                 if(credentials[0].equals(Admin.getUsername())){
@@ -42,10 +38,13 @@ public class TextAdventure {
                     }
                 }
                 break;
+            // [4]: register & goto logged in menu
             case(4):
-                System.out.println("[4]: Sie möchten sich registrieren \n" + "Bitte geben Sie Ihren gewünschten Usernamen ein: ");
+                handleUserRegister(View.showUserRegisterMask());
                 break;
+            // [5]: exit TextAdventure
             default:
+                View.showExitApplication();
                 System.out.println("[0]: Sie möchten die Anwendung beenden \n" + "Vielen Dank & Aufwiedersehen");
                 System.exit(0);
                 break;
@@ -53,6 +52,81 @@ public class TextAdventure {
 
    }
 
+
+    // [1] geklickt: TextAdventure suchen --> TextAdventure starten
+   private void handleSearchTextAdventureMask(String textAdventureTitle) throws IOException{
+
+       textAdventureTitle = textAdventureTitle.substring(0,1).toUpperCase() + textAdventureTitle.substring(1);
+
+
+   }
+
+   // [2] geklickt: Übersicht anzeigen lassen --< TextAdventure starten
+    private void handleTextAdventureOverviewMask() {
+
+
+    }
+
+    // [3] geklickt: als Admin anmelden
+   private void handleAdminMenu(int i) throws IOException {
+       //add TextAdventure
+       if (i == 1) {
+
+           Adventure createAdventure = View.showCreateTextAdventureMask();
+           //als JSON Speichern fehlt
+           View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
+
+
+           //  playTextAdventure(View.showSelectedDirectionOutput(),createAdventure);
+       }
+       //show statistics
+       else if (i == 2) {
+            handleShowStatisticsInput(View.showTextAdventureStatisticsMask());
+       }
+   }
+
+    private void handleShowStatisticsInput(int i) throws  IOException {
+        //return how often his TA was played
+        if(i == 1){
+
+        }
+        //return how often durchschnittlich his TA was played
+        else if( i == 2){
+
+        }
+     }
+
+   // [4] geklickt: registrieren
+
+    private void handleUserRegister(String[] userData) throws IOException {
+
+
+
+    }
+
+   //TextAdventure starten
+   private void playTextAdventure(String richtung, Adventure adventure){
+        while(richtung != null) {
+            if (richtung.equals("osten")) {
+                adventure.setStartPosY(adventure.getStartPosY() + 1); //rechts
+                View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
+            } else if (richtung.equals("westen")) { //links
+                adventure.setStartPosY(adventure.getStartPosY() - 1);
+                View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
+            } else if (richtung.equals("süden")) {    //unten
+                adventure.setStartPosX(adventure.getStartPosX() + 1);
+                View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
+            } else if (richtung.equals("norden")) {
+                adventure.setStartPosX(adventure.getStartPosX() - 1);
+                View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
+            } else {
+                System.exit(0);
+            }
+        }
+   }
+
+
+   // errors & Exceptions
     private void handleLoginError() throws IOException {
 
         if(View.showLoginError().equals("t")) {
@@ -61,34 +135,6 @@ public class TextAdventure {
             startTextAdventure();
         }
     }
-
-    //
-   private void handleAdminMenu(int i) throws IOException {
-       //add TextAdventure
-       if (i == 1) {
-           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-           Adventure createAdventure = View.showAddTextAdventureMask();
-           View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
-           String richtung = br.readLine().trim();
-           if(richtung.equals("osten")){
-               createAdventure.setStartPosY(createAdventure.getStartPosY()+1);  //verschiebung um 1 nach rechts, but y+1?
-           }
-           View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
-
-       }
-       //show statistics
-       else if (i == 2) {
-
-       }
-   }
-
-
-   private void searchForTextAdventure(String titel) throws IOException{
-        titel = titel.substring(0,1).toUpperCase() + titel.substring(1);
-
-
-
-   }
 
 
 }

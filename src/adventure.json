@@ -1,6 +1,31 @@
 {
-  "id": 1,
+  "ID": 1,
   "titel": "test",
-  "countperplay": 13,
-  "countpermove": 7
+  "countperplay": 0,
+  "countpermove": 0,
+  "row": 2,
+  "column": 2,
+  "startPosX": 0,
+  "startPosY": 0,
+  "isActive": false,
+  "map": [
+    [
+      null,
+      null
+    ],
+    [
+      null,
+      null
+    ]
+  ],
+  "locationNames": [
+    [
+      "berlin",
+      "stuttgart"
+    ],
+    [
+      "furtwangen",
+      "freiburg"
+    ]
+  ]
 }
