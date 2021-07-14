@@ -1,0 +1,21 @@
+{
+  "ID": 1,
+  "titel": "tess",
+  "countperplay": 0,
+  "countpermove": 0,
+  "row": 2,
+  "column": 2,
+  "startPosX": 0,
+  "startPosY": 0,
+  "isActive": false,
+  "locationNames": [
+    [
+      "123",
+      "123"
+    ],
+    [
+      "123",
+      "123"
+    ]
+  ]
+}
