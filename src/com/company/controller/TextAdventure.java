@@ -48,7 +48,6 @@ public class TextAdventure {
             // [5]: exit TextAdventure
             default:
                 View.showExitApplication();
-                System.out.println("[0]: Sie möchten die Anwendung beenden \n" + "Vielen Dank & Aufwiedersehen");
                 System.exit(0);
                 break;
         }
@@ -58,9 +57,17 @@ public class TextAdventure {
 
     // [1] geklickt: TextAdventure suchen --> TextAdventure starten
    private void handleSearchTextAdventureMask(String textAdventureTitle) throws IOException{
-
+        //load TextAdventure title from JSON file
        Adventure add = JsonReader.readExistingTextAdventureFileFromSystem();
-       System.out.println("THE TITLE IS:::");
+       System.out.println("--- Existing TextAdventure titles ---");
+       System.out.println("--- 1.) " +  textAdventureTitle);
+       //check for title
+       if(textAdventureTitle == add.getTitle()){
+
+       }
+
+        startToPlayTextAdventure(View.startToPlay(textAdventureTitle), add);
+
        System.out.println(add.getTitle());
 
 
@@ -109,8 +116,21 @@ public class TextAdventure {
     }
 
    //TextAdventure starten
-   private void playTextAdventure(String richtung, Adventure adventure){
-        while(richtung != null) {
+
+    private void startToPlayTextAdventure(boolean wantToPlay, Adventure adventure) throws IOException{
+        if(wantToPlay) {
+            View.startTextAdventureText();
+            View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
+            String direction = "";
+            while(direction != "exit") {
+                handleUserDirection(View.showSelectedDirectionOutput(), adventure);
+            }
+            }
+        }
+
+
+
+   private void handleUserDirection(String richtung, Adventure adventure){
             if (richtung.equals("osten")) {
                 adventure.setStartPosY(adventure.getStartPosY() + 1); //rechts
                 View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
@@ -127,7 +147,7 @@ public class TextAdventure {
                 System.exit(0);
             }
         }
-   }
+
 
 
    // errors & Exceptions

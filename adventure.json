@@ -1,21 +1,34 @@
 {
   "ID": 1,
-  "titel": "tess",
+  "titel": "Osmans Test",
   "countperplay": 0,
   "countpermove": 0,
-  "row": 2,
-  "column": 2,
+  "row": 3,
+  "column": 5,
   "startPosX": 0,
   "startPosY": 0,
-  "isActive": false,
+  "isActive": true,
   "locationNames": [
     [
+      "123",
+      "123",
+      "123",
       "123",
       "123"
     ],
     [
       "123",
-      "123"
+      "123",
+      "564",
+      "123",
+      "533"
+    ],
+    [
+      "14",
+      "44",
+      "245",
+      "4",
+      "54"
     ]
   ]
 }

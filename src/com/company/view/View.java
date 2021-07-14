@@ -138,46 +138,90 @@ public class View {
 
     }
 
+    //play TextAdventure
 
-    // placeholder
-    public static int showStartTextAdventureMenu(int i){
-        if(i == 1) {
-            System.out.println("Das TextAdventure startet.... ... .. .");
-            System.out.println("X: stellt deinen aktuellen Standort dar");
-            System.out.println("o: stellt die noch möglichen Standorte dar");
-            System.out.println("Bewege dich mit den Pfeiltasten um in eine Richtung zu laufen");
-            System.out.println("| X | o | o |");
-            System.out.println("| o | o | o |");
-            System.out.println("| o | o | o |");
+    public static boolean startToPlay(String textAdventureTitle) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("TextAdventure mit dem Titel: " + textAdventureTitle + " starten?: \n Tippe [true] zum starten Tippe [etwas anderes] um zum Hauptmenü zu gelangen");
+
+        return parseBoolean(br.readLine());
+    }
+
+    //show start
+    public static void startTextAdventureText() throws IOException{
+        System.out.println("Das TextAdventure startet.... ... .. .");
+        System.out.println("X: stellt deinen aktuellen Standort dar");
+        System.out.println("o: stellt die noch möglichen Standorte dar");
+    }
+
+    //draws the clear map with x & y
+    public static void drawMap(int rows, int columns, int startPosX, int startPosY, String[][] locationNames) {
+        //prints the locationnames
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print("Standort: [" + i + ";" + j + "] => " +  locationNames[i][j]);
+                System.out.print("\t");
+            }
+            System.out.println();
         }
-        return 0;
+        //prints the Map
+        for(int i=0; i<rows; i++){
+            for(int o=0; o<columns; o++){
+                if(i == startPosX && o == startPosY)
+                    System.out.print("| X |");
+                else
+                    System.out.print("| o |");
+            }
+            System.out.println();
+        }
+        System.out.println("Startpunkt: " + locationNames[startPosX][startPosY]);
     }
 
 
-    //play TextAdventure
+    //Richtung einlesen
+    public static String handleInputDirection() throws IOException {
+        System.out.println("In welche Himmelsrichtung möchtest du laufen?: ");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        return br.readLine();
+    }
+
 
     //Richtung einlesen
     public static String showSelectedDirectionOutput() throws IOException {
+        System.out.println("In welche Himmelsrichtung möchtest du laufen?: ");
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String richtung = br.readLine().trim();
+        String direction = "";
+        direction = br.readLine();
+
         // rechts
-        if(richtung.equals("osten")){
+        if(direction.equals("osten")){
             System.out.println("Indiana Jones läuft Richtung Osten: -->....");
+            return "osten";
         }
         //links
-        else if(richtung.equals("westen")){
+        else if(direction.equals("westen")){
             System.out.println("Indiana Jones bewegt sich Richtung Westen: ....<-- ");
+            return "westen";
         }
         //unten
-        else if(richtung.equals("süden")){
-            System.out.print("Indiana Jones läuft Richtung Süden: .... ");
+        else if(direction.trim().equals("süden")){
+            System.out.println("Indiana Jones läuft Richtung Süden: .... ");
+            return "süden";
         }
         //oben
-        else if(richtung.equals("norden")){
+        else if(direction.trim().equals("norden")){
             System.out.println("Indiana Jones läuft nach Norden: ... ");
+            return "norden";
+        } else {
+            return "exit";
         }
-        return "";
+
     }
+
+
 
     //Error's & Exceptions
 
@@ -199,28 +243,7 @@ public class View {
 
 
 
-    //draws the clear map with x & y
-    public static void drawMap(int rows, int columns, int startPosX, int startPosY, String[][] locationNames) {
-        //prints the locationnames
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                System.out.print("Standort: [" + i + ";" + j + "] => " +  locationNames[i][j]);
-                System.out.print("\t");
-            }
-            System.out.println();
-        }
-        //prints the Map
-        for(int i=0; i<rows; i++){
-            for(int o=0; o<columns; o++){
-                if(i == startPosX && o == startPosY)
-                    System.out.print("| X |");
-                else
-                System.out.print("| o |");
-            }
-            System.out.println();
-        }
-        System.out.println("Startpunkt: " + locationNames[startPosX][startPosY]);
-    }
+
 
 
     public static void showExitApplication(){
