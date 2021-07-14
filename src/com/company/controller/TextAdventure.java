@@ -1,11 +1,20 @@
 package com.company.controller;
 
 import com.company.model.database.Database;
+import com.company.model.database.JsonReader;
+import com.company.model.database.JsonWriter;
 import com.company.model.datatypes.Adventure;
 import com.company.model.user.Admin;
 import com.company.view.View;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class TextAdventure {
 
@@ -56,7 +65,9 @@ public class TextAdventure {
     // [1] geklickt: TextAdventure suchen --> TextAdventure starten
    private void handleSearchTextAdventureMask(String textAdventureTitle) throws IOException{
 
-       textAdventureTitle = textAdventureTitle.substring(0,1).toUpperCase() + textAdventureTitle.substring(1);
+       Adventure add = JsonReader.readExistingTextAdventureFileFromSystem();
+       System.out.println("THE TITLE IS:::");
+       System.out.println(add.getTitle());
 
 
    }
@@ -73,10 +84,9 @@ public class TextAdventure {
        if (i == 1) {
 
            Adventure createAdventure = View.showCreateTextAdventureMask();
-           //als JSON Speichern fehlt
            View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
 
-
+           JsonWriter.writeAdventureFileToSystem(createAdventure);
            //  playTextAdventure(View.showSelectedDirectionOutput(),createAdventure);
        }
        //show statistics

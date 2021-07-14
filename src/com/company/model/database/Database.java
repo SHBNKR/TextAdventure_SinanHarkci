@@ -27,8 +27,19 @@ public class Database {
 
         JsonArray textAdventureToJSON = new JsonArray();
 
+        try{
 
-        JsonWriter.writeAdventureFileToSystem(adventure);
+            adventure = JsonReader.readExistingTextAdventureFileFromSystem();
+
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+      // return JsonWriter.writeAdventureFileToSystem(adventure);
 
     }
 
@@ -48,7 +59,7 @@ public class Database {
         try{
 
             adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
-            adventures.adventures.get(0).values();
+            adventures.adventures.get(0);
 
         } catch (IOException e) {
             e.printStackTrace();

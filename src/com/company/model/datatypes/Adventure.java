@@ -25,11 +25,11 @@ public class Adventure {
     private boolean isActive = false;
 
 
-    public String[][] getMap() {
+ /*   public String[][] getMap() {
         return map;
-    }
+    }*/
 
-    private String[][] map;
+  //  private String[][] map;
 
     public String[][] getLocationNames() {
         return locationNames;
@@ -45,7 +45,7 @@ public class Adventure {
         this.startPosX = startPosX;
         this.startPosY = startPosY;
         this.isActive = isActive;
-        this.map = new String[row][column];
+ //       this.map = new String[row][column];
         this.locationNames = locationNames;
     }
 
@@ -54,7 +54,7 @@ public class Adventure {
         return ID;
     }
 
-    public String getTitel() {
+    public String getTitle() {
         return titel;
     }
 

@@ -1,9 +1,14 @@
 package com.company.model.datatypes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class Adventures {
 
-    public ArrayList<HashMap<Integer, String>> adventures;
+    public ArrayList<Adventures> adventures;
+
+    public List<Adventures> getAdventures(){
+        return adventures;
+    }
+
 }

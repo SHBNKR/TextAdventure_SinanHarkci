@@ -5,6 +5,7 @@ import com.company.model.datatypes.Adventures;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,9 +13,13 @@ import java.nio.file.Paths;
 public class JsonReader{
 
     public static Adventure readExistingTextAdventureFileFromSystem() throws IOException {
-        String file = "adventure.json";
-        String json = new String(Files.readAllBytes(Paths.get(file)));
-        return new Gson().fromJson(json, Adventure.class);
+        Gson gson = new Gson();
+
+        Reader reader = Files.newBufferedReader(Paths.get("adventure.json"));
+        Adventure addven = gson.fromJson(reader, Adventure.class);
+
+        reader.close();
+        return addven;
     }
 
     public static Adventures readExistingTextAdventuresFileFromSystem() throws IOException {
