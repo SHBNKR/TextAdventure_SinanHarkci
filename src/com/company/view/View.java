@@ -22,32 +22,29 @@ public class View {
         try{
             return parseInt(br.readLine());
         } catch(NumberFormatException nfe){
+            System.out.println("[irgendwas anderes]: Sie möchten die Anwendund beenden." +
+                    " \n [irgendwas anderes]: Vielen Dank dass Sie TextAdventure gespielt haben. Auf Wiedersehen");
             System.exit(0);
         }
-
         return 0;
     }
 
     // [1]: Nach TextAdventure suchen
-    public static String searchTextAdventureMask() throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("[1]: Sie möchten nach einem TextAdventure suchen \n"
-                + "Geben Sie den Titel in die Konsoleneingabe ein: ");
-
-        return br.readLine();
-    }
 
     public static String showSearchTextAdventureMask() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Tippen Sie den Titel zum suchen ein: ");
+
+        System.out.println("[1]: Sie möchten nach einem TextAdventure suchen \n"
+                + "Geben Sie den Titel in die Konsoleneingabe ein: ");
+        System.out.println("--- Du suchst ein TextAdventure mit dem Titel: " + br.readLine() +" ---");
+
         return br.readLine();
     }
 
     public static int showNotFoundTextAdventure() throws  IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.err.println("Dein gesuchtes TextAdventure wurde nicht gefunden \n Tippe [1] um erneut zu suchen \n Tippe [2] um zum HauptMenü zu gelangen");
+        System.err.println("[1]: Dein gesuchtes TextAdventure wurde nicht gefunden \n Tippe [1] um erneut zu suchen \n Tippe [2] um zum HauptMenü zu gelangen");
 
         return parseInt(br.readLine());
     }
@@ -69,9 +66,9 @@ public class View {
     public static int showAdminMask() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("Du bist als Admin eingeloggt:");
-        System.out.println("---- 1.) Ein TextAdventure erstellen ---");
-        System.out.println("---- 2.) In die Statistiken einsehen ---");
+        System.out.println("[3]: Du bist als Admin eingeloggt:");
+        System.out.println("[3]: ---- Tippe [1] : Ein TextAdventure erstellen ---");
+        System.out.println("[3]: ---- Tippe [2] : In deine Statistiken einsehen ---");
 
         try {
             return parseInt(br.readLine());
@@ -95,7 +92,7 @@ public class View {
     public static Adventure showCreateTextAdventureMask() throws IOException {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
 
-        System.out.println("---- Sie möchten ein TextAdventure hinzufügen: ");
+        System.out.println("[3.1]: ---- Sie möchten ein TextAdventure erstellen: ");
         System.out.println("Bitte geben Sie ihrem TextAdventure einen Titel: ");
         String titel = br.readLine();
         System.out.println("---- Die Größe des Spielfeldes wird durch ein X * Y Feld erstellt!  ---");
@@ -130,7 +127,7 @@ public class View {
     public static int showTextAdventureStatisticsMask() throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("[3]: TextAdventure Statistiken anzeigen: \n Tippe [1] um einzusehen wie viele Spieler dein TextAdventure schon gespielt haben:  \n  Tippe [2] um einzusehen wie viele Züge durchschnittlich auf deinem TextAdventure gemacht wurde: ");
+        System.out.println("[3.2]: TextAdventure Statistiken anzeigen: \n Tippe [1] um einzusehen wie viele Spieler dein TextAdventure schon gespielt haben:  \n  Tippe [2] um einzusehen wie viele Züge durchschnittlich auf deinem TextAdventure gemacht wurde: ");
         return parseInt(br.readLine());
     }
 
@@ -154,7 +151,7 @@ public class View {
     public static boolean startToPlay(String textAdventureTitle) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("TextAdventure mit dem Titel: " + textAdventureTitle + " starten?: \n Tippe [true] zum starten Tippe [etwas anderes] um zum Hauptmenü zu gelangen");
+        System.out.println("[1]: TextAdventure mit dem Titel: " + textAdventureTitle + " starten?: \n Tippe [true] zum starten Tippe [etwas anderes] um zum Hauptmenü zu gelangen");
 
         return parseBoolean(br.readLine());
     }
@@ -188,17 +185,6 @@ public class View {
         }
         System.out.println("Herzlich Wilkommen in : " + locationNames[startPosX][startPosY]);
     }
-
-
-    //Richtung einlesen
-    public static String handleInputDirection() throws IOException {
-        System.out.println("In welche Himmelsrichtung möchtest du laufen?: ");
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        return br.readLine();
-    }
-
 
     //Richtung einlesen
     public static String showSelectedDirectionOutput() throws IOException {
@@ -254,18 +240,6 @@ public class View {
 
     public String showMapSize(int rows, int columns){
         return "Das Spielfeld hat: " + rows + " Reihen & " + columns + " Zeilen";
-    }
-
-
-
-
-
-
-    public static void showExitApplication(){
-        System.out.println("[0]: Sie möchten die Anwendung beenden \n" + "Vielen Dank & Aufwiedersehen");
-
-       // System.exit(0);
-
     }
 
 

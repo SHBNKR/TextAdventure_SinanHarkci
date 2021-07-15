@@ -62,8 +62,7 @@ public class TextAdventure {
        // ArrayList<Adventure> adventures = Database.getInstance().get
         //load TextAdventure title from JSON file
         Adventure add = JsonReader.readExistingTextAdventureFileFromSystem();
-        System.out.println("--- Du suchst ein TextAdventure mit dem Titel: " + textAdventureTitle +" ---");
-        System.out.println("--- 1.) " + textAdventureTitle);
+
         //check for title
         if (textAdventureTitle.equals(add.getTitle())) {
 
@@ -98,7 +97,7 @@ public class TextAdventure {
 
             Adventure createAdventure = View.showCreateTextAdventureMask();
             if (createAdventure.getStartPosX() < createAdventure.getRows() || createAdventure.getStartPosY() < createAdventure.getColums()) {
-               // System.out.println("Bitte Startpunkt im Spielfeld definieren! ");
+               //  Startpunkt im Spielfeld definieren!
             }
             View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
 
