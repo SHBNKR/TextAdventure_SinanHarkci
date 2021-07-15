@@ -13,11 +13,12 @@ public class View {
 
     public static int showInitialMenu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("---- Welcome to Text Adventure ---");
-        System.out.println("---- 1.) Nach einem TextAdventure suchen ---");
-        System.out.println("---- 2.) TextAdventure Übersicht anzeigen ---");
-        System.out.println("---- 3.) In der Anwendung anmelden ---");
-        System.out.println("---- 4.) In der Anwendung registrieren ---");
+        System.out.println("---- Willkommen bei Text Adventure ---");
+        System.out.println("---- Tippe  [1] : Nach einem TextAdventure suchen ---");
+        System.out.println("---- Tippe  [2] : TextAdventure Übersicht anzeigen ---");
+        System.out.println("---- Tippe  [3] : In der Anwendung anmelden ---");
+        System.out.println("---- Tippe  [4] : In der Anwendung registrieren ---");
+        System.out.println("---- Tippe  [irgendwas anderes] : Um die Anwendung zu beenden ---");
         try{
             return parseInt(br.readLine());
         } catch(NumberFormatException nfe){
@@ -41,6 +42,14 @@ public class View {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Tippen Sie den Titel zum suchen ein: ");
         return br.readLine();
+    }
+
+    public static int showNotFoundTextAdventure() throws  IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.err.println("Dein gesuchtes TextAdventure wurde nicht gefunden \n Tippe [1] um erneut zu suchen \n Tippe [2] um zum HauptMenü zu gelangen");
+
+        return parseInt(br.readLine());
     }
 
     // [2]: TextAdventure Übersicht anzeigen
@@ -94,14 +103,16 @@ public class View {
         int rows = parseInt(br.readLine());
         System.out.println("Bitte geben Sie die Anzahl ihrer Spalten an: ");
         int colums = parseInt(br.readLine());
-        System.out.println("Bitte bestimmen Sie den Startpunkt Ihres Spiels");
+        System.out.print("Bitte bestimmen Sie den Startpunkt Ihres Spiels \nStartpunkt Reihe : ");
         int startPosX = parseInt(br.readLine());
+        System.out.print("Startpunkt Spalte : " );
         int startPosY = parseInt(br.readLine());
         System.out.println("Bitte fügen Sie ihrem TextAdventure Standortnamen hinzu: ");
         //Input Zweidimensionales Array über key mit String verbinden
         String[][] locationNames = new String[rows][colums];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < colums; j++) {
+                System.out.print("Standortname für : [" + i + ";" + j + "] => : ");
                 locationNames[i][j] = br.readLine();
             }
         }
@@ -112,7 +123,7 @@ public class View {
         System.out.println("Das TextAdventure mit dem Titel: " + titel + " wurde erstellt:");
         System.out.println("Sinan Harkci wünscht Ihnen Viel Spaß beim spielen");
 
-        //  return new String[]{titel, String.valueOf(rows), String.valueOf(colums), String.valueOf(startPosX), String.valueOf(startPosY), String.valueOf(isActiveTextAdventure),};
+        //make startPosX and startPosY -1 for make startPosition at  [0;0];
         return new Adventure(titel , rows,  colums,  startPosX,  startPosY,  isActiveTextAdventure, locationNames);
     }
 
@@ -160,7 +171,7 @@ public class View {
         //prints the locationnames
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                System.out.print("Standort: [" + i + ";" + j + "] => " +  locationNames[i][j]);
+                System.out.print("Standort: [" + i + ";" + j + "] => " + locationNames[i][j]);
                 System.out.print("\t");
             }
             System.out.println();
@@ -175,13 +186,14 @@ public class View {
             }
             System.out.println();
         }
-        System.out.println("Startpunkt: " + locationNames[startPosX][startPosY]);
+        System.out.println("Herzlich Wilkommen in : " + locationNames[startPosX][startPosY]);
     }
 
 
     //Richtung einlesen
     public static String handleInputDirection() throws IOException {
         System.out.println("In welche Himmelsrichtung möchtest du laufen?: ");
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         return br.readLine();
@@ -190,31 +202,35 @@ public class View {
 
     //Richtung einlesen
     public static String showSelectedDirectionOutput() throws IOException {
-        System.out.println("In welche Himmelsrichtung möchtest du laufen?: ");
+        System.out.println("In welche Himmelsrichtung möchtest du laufen?: \t [etwas anderes] zum beenden");
+        System.out.println("-------norden------");
+        System.out.println("westen--------osten");
+        System.out.println("-------süden-------");
+        System.out.println("Tippe deine Himmelsrichtung ein: ");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String direction = "";
         direction = br.readLine();
 
-        // rechts
-        if(direction.equals("osten")){
+        // rechts check with trim if whitespace
+        if(direction.trim().equals("osten") || direction.trim().equals("Osten")){
             System.out.println("Indiana Jones läuft Richtung Osten: -->....");
-            return "osten";
+            return "Osten";
         }
         //links
-        else if(direction.equals("westen")){
+        else if(direction.trim().equals("westen") || direction.trim().equals("Westen")){
             System.out.println("Indiana Jones bewegt sich Richtung Westen: ....<-- ");
-            return "westen";
+            return "Westen";
         }
         //unten
-        else if(direction.trim().equals("süden")){
+        else if(direction.trim().equals("süden") || direction.trim().equals("Süden")){
             System.out.println("Indiana Jones läuft Richtung Süden: .... ");
-            return "süden";
+            return "Süden";
         }
         //oben
-        else if(direction.trim().equals("norden")){
+        else if(direction.trim().equals("norden") || direction.trim().equals("Norden")){
             System.out.println("Indiana Jones läuft nach Norden: ... ");
-            return "norden";
+            return "Norden";
         } else {
             return "exit";
         }
@@ -248,7 +264,7 @@ public class View {
     public static void showExitApplication(){
         System.out.println("[0]: Sie möchten die Anwendung beenden \n" + "Vielen Dank & Aufwiedersehen");
 
-        System.exit(0);
+       // System.exit(0);
 
     }
 

@@ -8,6 +8,7 @@ import com.company.model.user.RegisteredUser;
 import com.company.view.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class TextAdventure {
@@ -48,7 +49,7 @@ public class TextAdventure {
             // [5]: exit TextAdventure
             default:
                 View.showExitApplication();
-                System.exit(0);
+               // System.exit(0);
                 break;
         }
 
@@ -57,18 +58,31 @@ public class TextAdventure {
 
     // [1] geklickt: TextAdventure suchen --> TextAdventure starten
     private void handleSearchTextAdventureMask(String textAdventureTitle) throws IOException {
+
+       // ArrayList<Adventure> adventures = Database.getInstance().get
         //load TextAdventure title from JSON file
         Adventure add = JsonReader.readExistingTextAdventureFileFromSystem();
-        System.out.println("--- Existing TextAdventure titles ---");
+        System.out.println("--- Du suchst ein TextAdventure mit dem Titel: " + textAdventureTitle +" ---");
         System.out.println("--- 1.) " + textAdventureTitle);
         //check for title
-        if (textAdventureTitle == add.getTitle()) {
+        if (textAdventureTitle.equals(add.getTitle())) {
 
+            startToPlayTextAdventure(View.startToPlay(textAdventureTitle), add);
+        }
+        else {
+            handleTextAdventureNotFoundMask(View.showNotFoundTextAdventure());
         }
 
-        startToPlayTextAdventure(View.startToPlay(textAdventureTitle), add);
 
 
+    }
+
+    private void handleTextAdventureNotFoundMask(int userInputAfterNotFound) throws  IOException {
+        if(userInputAfterNotFound == 1){
+            handleUserInputFromStart(1);
+        } else if( userInputAfterNotFound == 2){
+            startTextAdventure();
+        }
     }
 
     // [2] geklickt: Übersicht anzeigen lassen --< TextAdventure starten
@@ -83,13 +97,12 @@ public class TextAdventure {
         if (i == 1) {
 
             Adventure createAdventure = View.showCreateTextAdventureMask();
-            if(createAdventure.getStartPosX() < createAdventure.getRows() || createAdventure.getStartPosY() < createAdventure.getColums()){
-                System.out.println("Bitte Startpunkt im Spielfeld definieren! ");
+            if (createAdventure.getStartPosX() < createAdventure.getRows() || createAdventure.getStartPosY() < createAdventure.getColums()) {
+               // System.out.println("Bitte Startpunkt im Spielfeld definieren! ");
             }
             View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
 
             JsonWriter.writeAdventureFileToSystem(createAdventure);
-            //  playTextAdventure(View.showSelectedDirectionOutput(),createAdventure);
         }
         //show statistics
         else if (i == 2) {
@@ -124,55 +137,55 @@ public class TextAdventure {
             View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
             String direction = "";
             while (!direction.equals("exit")) {
-              direction =  handleUserDirection(View.showSelectedDirectionOutput(), adventure);
+                direction = handleUserDirection(View.showSelectedDirectionOutput(), adventure);
             }
+            startTextAdventure();
+        } else{
+            System.err.println("exit");
         }
     }
 
 
     private String handleUserDirection(String richtung, Adventure adventure) throws IOException {
-        if (richtung.equals("osten") && adventure.getStartPosY() != adventure.getColums() - 1) {
+        if (richtung.equals("Osten") && adventure.getStartPosY() != adventure.getColums() - 1) {
+                adventure.setStartPosY(adventure.getStartPosY() + 1); //rechts
+                View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
+                adventure.incrementCountpermove();
 
-            adventure.setStartPosY(adventure.getStartPosY() + 1); //rechts
-            View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
-            adventure.incrementCountpermove();
-
-        } else if (richtung.equals("westen") && adventure.getStartPosY() != 0) { //links
+        } else if (richtung.equals("Westen") && adventure.getStartPosY() != 0) { //links
 
             adventure.setStartPosY(adventure.getStartPosY() - 1);
             View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
             adventure.incrementCountpermove();
-        } else if (richtung.equals("süden") && adventure.getStartPosX() != adventure.getColums() - 1) {    //unten
+
+        } else if (richtung.equals("Süden") && adventure.getStartPosX() != adventure.getColums() - 1) {    //unten
 
             adventure.setStartPosX(adventure.getStartPosX() + 1);
             View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
             adventure.incrementCountpermove();
 
-        } else if (richtung.equals("norden") && adventure.getStartPosX() != 0) {
+        } else if (richtung.equals("Norden") && adventure.getStartPosX() != 0) {
 
             adventure.setStartPosX(adventure.getStartPosX() - 1);
             View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
             adventure.incrementCountpermove();
 
-        } else if(richtung.equals("exit")) {
+        } else if (richtung.equals("exit")) {
             System.out.println("Danke dass du TextAdventure gespielt hast...");
-        //    handleUserInputFromStart(1);
             return "exit";
+        } else {
+            System.out.println("Es tut mir leid, du bist am tRand der Karte angekommen. Der Weg nach: " + richtung +" endet hier ... .. .");
         }
-        else {
-        System.out.println("Du bist am Rand angekommen");
+        return "";
     }
-    return "";
-}
 
 
-
-   // errors & Exceptions
+    // errors & Exceptions
     private void handleLoginError() throws IOException {
 
-        if(View.showLoginError().equals("t")) {
+        if (View.showLoginError().equals("t")) {
             handleUserInputFromStart(3);
-        } else{
+        } else {
             startTextAdventure();
         }
     }
