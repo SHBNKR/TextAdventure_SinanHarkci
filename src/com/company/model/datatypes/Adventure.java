@@ -1,5 +1,6 @@
 package com.company.model.datatypes;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Adventure {
@@ -11,31 +12,11 @@ public class Adventure {
     private int countpermove = 0;
     private int row;
     private int column;
-
-    public void setStartPosX(int startPosX) {
-        this.startPosX = startPosX;
-    }
-
-    public void setStartPosY(int startPosY) {
-        this.startPosY = startPosY;
-    }
-
     private int startPosX;
     private int startPosY;
-    private boolean isActive = false;
+    private boolean isActive;
+    private String[][] locationNames;
 
-
- /*   public String[][] getMap() {
-        return map;
-    }*/
-
-  //  private String[][] map;
-
-    public String[][] getLocationNames() {
-        return locationNames;
-    }
-
-    String[][] locationNames;
 
     public Adventure(String titel, int row, int column, int startPosX, int startPosY, boolean isActive, String[][] locationNames){
         ID = uniqueId.incrementAndGet();
@@ -68,8 +49,8 @@ public class Adventure {
     public int getCountpermove() {
         return countpermove;
     }
-    public void setCountpermove(int countpermove) {
-        this.countpermove = countpermove;
+    public void incrementCountpermove() {
+        this.countpermove = countpermove++;
     }
 
     public int getStartPosX() { return startPosX; }
@@ -79,6 +60,11 @@ public class Adventure {
 
     public int getRows(){ return row; }
     public int getColums() { return column; }
+
+    public void setStartPosX(int startPosX) { this.startPosX = startPosX; }
+    public void setStartPosY(int startPosY) { this.startPosY = startPosY; }
+
+    public String[][] getLocationNames() { return locationNames; }
 
 
 }

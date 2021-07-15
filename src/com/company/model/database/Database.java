@@ -2,7 +2,7 @@ package com.company.model.database;
 
 import com.company.model.datatypes.Adventure;
 import com.company.model.datatypes.Adventures;
-import com.company.model.user.Admin;
+import com.company.model.user.RegisteredUser;
 import com.company.model.user.Gamer;
 import com.google.gson.JsonArray;
 
@@ -48,7 +48,7 @@ public class Database {
     public static boolean checkPassword(String password, boolean isAdmin) {
 
         if(isAdmin) {
-            return password.equals(Admin.getPassword());
+            return password.equals(RegisteredUser.getAdminPassword());
         } else {
             return password.equals(Gamer.getPassword());
         }

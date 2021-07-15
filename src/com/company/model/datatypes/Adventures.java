@@ -5,9 +5,13 @@ import java.util.List;
 
 public class Adventures {
 
-    public ArrayList<Adventures> adventures;
+    public ArrayList<Adventure> adventures;
 
-    public List<Adventures> getAdventures(){
+    public  Adventures() {
+        adventures = new ArrayList<>();
+    }
+
+    public List<Adventure> getAdventures(){
         return adventures;
     }
 
