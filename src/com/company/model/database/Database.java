@@ -7,6 +7,7 @@ import com.company.model.user.Gamer;
 import com.google.gson.JsonArray;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Database {
 
@@ -21,6 +22,9 @@ public class Database {
 
     Adventure adventure;
     Adventures adventures;
+    RegisteredUser registeredUser;
+    ArrayList<RegisteredUser> registeredUsers = new ArrayList<>();
+
 
 
     public void addTextAdventure(Adventure adventure){
@@ -41,6 +45,34 @@ public class Database {
 
       // return JsonWriter.writeAdventureFileToSystem(adventure);
 
+    }
+
+
+    //[4]: registrieren
+
+    public void addUser(RegisteredUser user){
+        //   RegisteredUsers registeredUsers = JsonReader.readExistingRegisteredUserFileFromSystem();
+
+            registeredUsers.add(user);
+            JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
+
+
+    }
+
+    public boolean checkIfUserIsExisting(RegisteredUser user) {
+        boolean userExists = false;
+
+        try{
+            for(int i=0; i<registeredUsers.size(); i++) {
+                if(user.getUsername().equals(registeredUsers.get(i).getUsername())){
+                    userExists = true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    return userExists;
     }
 
 

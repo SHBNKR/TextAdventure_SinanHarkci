@@ -8,7 +8,6 @@ import com.company.model.user.RegisteredUser;
 import com.company.view.View;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 
@@ -34,24 +33,25 @@ public class TextAdventure {
                 break;
             //[3]: login & after
             case (3):
-                String[] credentials = View.showLoginMask();
-                RegisteredUser user = JsonReader.readExistingRegisteredUserFileFromSystem();
-                if (credentials[0].equals(RegisteredUser.getAdminUsername())) {
-                    if (Database.checkPassword(credentials[1], true)) {
-                        handleAdminMenu(View.showAdminMask());
-                    } else {
-                        handleLoginError();
-                    }
-                } else if(credentials[0].equals(user.getUsername())){
-                    if(credentials[1].equals(user.getPassword())){
-                        handleAdminMenu(View.showAdminMask());
-                    } else {
-                        handleLoginError();
-                    }
-                }
-                else {
-                    handleLoginError();
-                }
+//                String[] credentials = View.showLoginMask();
+//                RegisteredUser user = JsonReader.readExistingRegisteredUserFileFromSystem();
+//
+//                if (credentials[0].equals(RegisteredUser.getAdminUsername())) {
+//                    if (Database.checkPassword(credentials[1], true)) {
+//                        handleAdminMenu(View.showAdminMask());
+//                    } else {
+//                        handleLoginError();
+//                    }
+//                } else if(credentials[0].equals(user.getUsername())){
+//                    if(credentials[1].equals(user.getPassword())){
+//                        handleAdminMenu(View.showAdminMask());
+//                    } else {
+//                        handleLoginError();
+//                    }
+//                }
+//                else {
+//                    handleLoginError();
+//                }
                 break;
             // [4]: register & goto logged in menu
             case (4):
@@ -148,17 +148,32 @@ public class TextAdventure {
         final Pattern pattern = Pattern.compile("^[a-zA-Z0-9_]*$");
 
         if(!pattern.matcher(userData[0]).matches()) {
-            handleRegisterError();
+            invalidUserNameError();
         } else {
-            RegisteredUser newUser = new RegisteredUser(userData);
 
-            JsonWriter.writeRegisteredUserFileToSystem(newUser);
+            RegisteredUser newUser = new RegisteredUser(userData);
+            if(Database.getInstance().checkIfUserIsExisting(newUser)){
+                userAlreadyExistsError();
+            } else {
+                Database.getInstance().addUser(newUser);
+            }
+
+
+       //     JsonWriter.writeRegisteredUserFileToSystem(list);
         }
     }
 
-    private void handleRegisterError() throws IOException {
+    private void invalidUserNameError() throws IOException {
 
-        if(View.showRegisterError().equals("t")) {
+        if(View.invalidUserNameError().equals("t")) {
+            handleUserInputFromStart(4);
+        } else {
+            startTextAdventure();
+        }
+    }
+
+    private void userAlreadyExistsError() throws IOException {
+        if(View.showUserAlreadyExistsError().equals("t")) {
             handleUserInputFromStart(4);
         } else {
             startTextAdventure();

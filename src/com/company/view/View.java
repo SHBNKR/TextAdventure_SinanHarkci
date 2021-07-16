@@ -5,8 +5,6 @@ import com.company.model.datatypes.Adventure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.regex.Pattern;
-
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.Integer.parseInt;
 
@@ -239,10 +237,20 @@ public class View {
 
         return br.readLine();
     }
-
-    public static String showRegisterError() throws  IOException{
+    //Register error zusammenfassen
+    public static String invalidUserNameError() throws  IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.err.println("Bitte nur alphanumerische Zeichen als Usernamen!" +
+                " \nTippe [t] um es erneut zu probieren: " +
+                " \nTippe [irgendwas anders] um zurück zu kehren: ");
+
+        return br.readLine();
+    }
+
+    public static String showUserAlreadyExistsError() throws  IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.err.println("Dieser Username existiert bereits! Bitte wähle ein anderes!" +
                 " \nTippe [t] um es erneut zu probieren: " +
                 " \nTippe [irgendwas anders] um zurück zu kehren: ");
 

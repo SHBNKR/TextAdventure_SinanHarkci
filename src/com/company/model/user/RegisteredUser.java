@@ -1,8 +1,16 @@
 package com.company.model.user;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RegisteredUser {
+public class RegisteredUser{
+
+    private static ArrayList<RegisteredUser> registeredUsers;
+
+    public static ArrayList<RegisteredUser> getRegisteredUsers() {
+        return registeredUsers;
+    }
+
 
     private static final AtomicInteger uniqueId = new AtomicInteger();
     private  int ID;
