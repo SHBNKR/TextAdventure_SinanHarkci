@@ -42,16 +42,17 @@ public class Adventure {
     public int getCountperplay() {
         return countperplay;
     }
-    public void setCountperplay(int countperplay) {
-        this.countperplay = countperplay;
-    }
-
     public int getCountpermove() {
         return countpermove;
+    }
+
+    public void incrementCountperPlay() {
+        this.countperplay = countperplay++;
     }
     public void incrementCountpermove() {
         this.countpermove = countpermove++;
     }
+
 
     public int getStartPosX() { return startPosX; }
     public int getStartPosY() { return startPosY; }

@@ -19,12 +19,6 @@ public class RegisteredUser {
         this.password = userData[1];
     }
 
-    public static String getAdminUsername(){
-        return adminUsername;
-    }
-    public static String getAdminPassword(){
-        return adminPassword;
-    }
 
     public  String getUsername() {
         return username;
@@ -36,11 +30,11 @@ public class RegisteredUser {
 
 
 
-    public static void setAdminUsername(String adminUsername) {
-        RegisteredUser.adminUsername = adminUsername;
+    public static String getAdminUsername() {
+        return adminUsername;
     }
 
-    public static void setAdminPassword(String adminPassword) {
-        RegisteredUser.adminPassword = adminPassword;
+    public static String getAdminPassword() {
+        return adminPassword;
     }
 }

@@ -53,7 +53,7 @@ public class JsonWriter {
             writer.flush();
             writer.close();
 
-            System.out.println("TextAdventure was successfully registered");
+            System.out.println("User was successfully registered");
 
 
             return true;

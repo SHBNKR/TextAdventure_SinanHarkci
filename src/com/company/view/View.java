@@ -5,6 +5,7 @@ import com.company.model.datatypes.Adventure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.regex.Pattern;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.Integer.parseInt;
@@ -22,8 +23,8 @@ public class View {
         try{
             return parseInt(br.readLine());
         } catch(NumberFormatException nfe){
-            System.out.println("[irgendwas anderes]: Sie möchten die Anwendund beenden." +
-                    " \n [irgendwas anderes]: Vielen Dank dass Sie TextAdventure gespielt haben. Auf Wiedersehen");
+            System.out.println("Sie möchten die Anwendung beenden." +
+                    " \nVielen Dank dass Sie TextAdventure gespielt haben. Auf Wiedersehen");
             System.exit(0);
         }
         return 0;
@@ -34,17 +35,19 @@ public class View {
     public static String showSearchTextAdventureMask() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("[1]: Sie möchten nach einem TextAdventure suchen \n"
-                + "Geben Sie den Titel in die Konsoleneingabe ein: ");
-        System.out.println("--- Du suchst ein TextAdventure mit dem Titel: " + br.readLine() +" ---");
+        System.out.println("[1]: Sie möchten nach einem TextAdventure suchen: \n"
+                + "[1]: Geben Sie den Titel in die Konsoleneingabe ein: ");
+        String input = br.readLine();
+        System.out.println("[1]: Du suchst ein TextAdventure mit dem Titel: " + input );
 
-        return br.readLine();
+        return input;
     }
 
     public static int showNotFoundTextAdventure() throws  IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.err.println("[1]: Dein gesuchtes TextAdventure wurde nicht gefunden \n Tippe [1] um erneut zu suchen \n Tippe [2] um zum HauptMenü zu gelangen");
+
+        System.err.println("[1]: Dein gesuchtes TextAdventure wurde nicht gefunden " +
+                "\nTippe [1] um es erneut zu suchen \nTippe [2] um zum Hauptmenü zu gelangen");
 
         return parseInt(br.readLine());
     }
@@ -69,6 +72,7 @@ public class View {
         System.out.println("[3]: Du bist als Admin eingeloggt:");
         System.out.println("[3]: ---- Tippe [1] : Ein TextAdventure erstellen ---");
         System.out.println("[3]: ---- Tippe [2] : In deine Statistiken einsehen ---");
+        System.out.println("[3]: ---- Tippe [irgendwas] : Um zum Hauptmenü zu gelangen ---");
 
         try {
             return parseInt(br.readLine());
@@ -136,11 +140,10 @@ public class View {
     public static String[] showUserRegisterMask() throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         System.out.println("[4]: Sie möchten sich registrieren \n" + "Bitte geben Sie Ihren gewünschten Usernamen ein: ");
-        String username = br.readLine();
+        String username = br.readLine().trim();
         System.out.println("[4]: Bitte geben Sie Ihr gewünschtes Passwort ein: ");
-        String passwort = br.readLine();
+        String passwort = br.readLine().trim();
 
         return new String[]{username, passwort};
 
@@ -151,7 +154,8 @@ public class View {
     public static boolean startToPlay(String textAdventureTitle) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("[1]: TextAdventure mit dem Titel: " + textAdventureTitle + " starten?: \n Tippe [true] zum starten Tippe [etwas anderes] um zum Hauptmenü zu gelangen");
+        System.out.println("[GAME]: TextAdventure mit dem Titel: " + textAdventureTitle + " starten?: " +
+                "\n[GAME]: Tippe [true] zum starten Tippe [etwas anderes] um zum Hauptmenü zu gelangen");
 
         return parseBoolean(br.readLine());
     }
@@ -229,11 +233,21 @@ public class View {
     public static String showLoginError() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.err.println("Falscher username oder password! Tippe (t) um es erneut zu probieren oder etwas anderes um zurück zu kehren");
+        System.err.println("Falscher username oder password!" +
+                " \nTippe [t] um es erneut zu probieren oder" +
+                " \n[irgendwas anders] um zurück zu kehren");
+
         return br.readLine();
     }
 
+    public static String showRegisterError() throws  IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.err.println("Bitte nur alphanumerische Zeichen als Usernamen!" +
+                " \nTippe [t] um es erneut zu probieren: " +
+                " \nTippe [irgendwas anders] um zurück zu kehren: ");
 
+        return br.readLine();
+    }
 
 
     //SideStuff:

@@ -9,6 +9,7 @@ import com.company.view.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 
 public class TextAdventure {
@@ -34,22 +35,32 @@ public class TextAdventure {
             //[3]: login & after
             case (3):
                 String[] credentials = View.showLoginMask();
+                RegisteredUser user = JsonReader.readExistingRegisteredUserFileFromSystem();
                 if (credentials[0].equals(RegisteredUser.getAdminUsername())) {
                     if (Database.checkPassword(credentials[1], true)) {
                         handleAdminMenu(View.showAdminMask());
                     } else {
                         handleLoginError();
                     }
+                } else if(credentials[0].equals(user.getUsername())){
+                    if(credentials[1].equals(user.getPassword())){
+                        handleAdminMenu(View.showAdminMask());
+                    } else {
+                        handleLoginError();
+                    }
+                }
+                else {
+                    handleLoginError();
                 }
                 break;
             // [4]: register & goto logged in menu
             case (4):
                 handleUserRegister(View.showUserRegisterMask());
+                handleAdminMenu(View.showAdminMask());
                 break;
             // [5]: exit TextAdventure
             default:
-                View.showExitApplication();
-               // System.exit(0);
+                System.exit(0);
                 break;
         }
 
@@ -106,6 +117,8 @@ public class TextAdventure {
         //show statistics
         else if (i == 2) {
             handleShowStatisticsInput(View.showTextAdventureStatisticsMask());
+        } else if (i == 0){
+            startTextAdventure();
         }
     }
 
@@ -120,12 +133,36 @@ public class TextAdventure {
         }
     }
 
+    private void handleLoginError() throws IOException {
+
+        if (View.showLoginError().equals("t")) {
+            handleUserInputFromStart(3);
+        } else {
+            startTextAdventure();
+        }
+    }
+
     // [4] geklickt: registrieren
 
     private void handleUserRegister(String[] userData) throws IOException {
-        RegisteredUser newUser = new RegisteredUser(userData);
-        JsonWriter.writeRegisteredUserFileToSystem(newUser);
+        final Pattern pattern = Pattern.compile("^[a-zA-Z0-9_]*$");
 
+        if(!pattern.matcher(userData[0]).matches()) {
+            handleRegisterError();
+        } else {
+            RegisteredUser newUser = new RegisteredUser(userData);
+
+            JsonWriter.writeRegisteredUserFileToSystem(newUser);
+        }
+    }
+
+    private void handleRegisterError() throws IOException {
+
+        if(View.showRegisterError().equals("t")) {
+            handleUserInputFromStart(4);
+        } else {
+            startTextAdventure();
+        }
     }
 
     //TextAdventure starten
@@ -176,17 +213,6 @@ public class TextAdventure {
             System.out.println("Es tut mir leid, du bist am tRand der Karte angekommen. Der Weg nach: " + richtung +" endet hier ... .. .");
         }
         return "";
-    }
-
-
-    // errors & Exceptions
-    private void handleLoginError() throws IOException {
-
-        if (View.showLoginError().equals("t")) {
-            handleUserInputFromStart(3);
-        } else {
-            startTextAdventure();
-        }
     }
 
 
