@@ -153,7 +153,8 @@ public class View {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("[GAME]: TextAdventure mit dem Titel: " + textAdventureTitle + " starten?: " +
-                "\n[GAME]: Tippe [true] zum starten Tippe [etwas anderes] um zum Hauptmenü zu gelangen");
+                "\n[GAME]: Tippe [true] um TextAdventure zu starten " +
+                "\n[GAME]: Tippe [etwas anderes] um zum Hauptmenü zu gelangen");
 
         return parseBoolean(br.readLine());
     }

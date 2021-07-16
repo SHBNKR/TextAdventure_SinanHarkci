@@ -16,24 +16,21 @@ import java.util.List;
 
 public class JsonWriter {
 
-    public static boolean writeAdventureFileToSystem(Adventure adventureToWriteToJSON){
+    public static boolean writeAdventureFileToSystem(ArrayList<Adventure> adventures){
         //creates a file with a given title string
         try(Writer writer = new FileWriter("adventure.json")){
 
-            Adventures adventures = new Adventures();
-            adventures.adventures.add(adventureToWriteToJSON);
-
-         /*   GsonBuilder builder = new GsonBuilder();
+            GsonBuilder builder = new GsonBuilder();
             builder.serializeNulls();
             Gson gson = builder.create();
 
-            gson.toJson(adventures.adventures.get(0), writer);
+            gson.toJson(adventures, writer);
 
             writer.flush();
             writer.close();
 
             System.out.println("TextAdventure was successfully added");
-*/
+
             return true;
 
         } catch (IOException e) {
@@ -42,7 +39,7 @@ public class JsonWriter {
         }
     }
 
-    public static boolean writeRegisteredUserFileToSystem(ArrayList<RegisteredUser> list){
+    public static boolean writeRegisteredUserFileToSystem(ArrayList<RegisteredUser> registeredUsers){
         //creates a file with a given title string
         try(Writer writer = new FileWriter("registereduser.json")){
 
@@ -50,7 +47,7 @@ public class JsonWriter {
             builder.serializeNulls();
             Gson gson = builder.create();
 
-            gson.toJson(list, writer);
+            gson.toJson(registeredUsers, writer);
 
             writer.flush();
             writer.close();

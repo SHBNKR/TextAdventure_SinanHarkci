@@ -1,12 +1,9 @@
 package com.company.model.database;
 
 import com.company.model.datatypes.Adventure;
-import com.company.model.datatypes.Adventures;
 import com.company.model.user.RegisteredUser;
 import com.company.model.user.Gamer;
-import com.google.gson.JsonArray;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Database {
@@ -21,31 +18,55 @@ public class Database {
     //singleton pattern
 
     Adventure adventure;
-    Adventures adventures;
     RegisteredUser registeredUser;
+    ArrayList<Adventure> adventures = new ArrayList<>();
     ArrayList<RegisteredUser> registeredUsers = new ArrayList<>();
 
 
 
+    //[3]: create Textadventure
     public void addTextAdventure(Adventure adventure){
+     adventures.add(adventure);
+     JsonWriter.writeAdventureFileToSystem(adventures);
 
-        JsonArray textAdventureToJSON = new JsonArray();
+    }
 
+    public Adventure searchForTextAdventure(String title) {
+        int ID = 0;
         try{
+            for (Adventure value : adventures) {
+                if (title.equals(value.getTitle())) {
+                    adventure = value;
+                    break;
+                } else {
+                    System.err.println("not found");
+                }
+            }
 
-            adventure = JsonReader.readExistingTextAdventureFileFromSystem();
-
-
-
-
-        } catch (IOException e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
-
-      // return JsonWriter.writeAdventureFileToSystem(adventure);
-
+        return adventure;
     }
+
+
+    public boolean checkIfTextAdventureTitleIsMatching(String title) {
+        boolean textAdventureExists = false;
+
+        try{
+            for (Adventure value : adventures) {
+                if (title.equals(value.getTitle())) {
+                    textAdventureExists = true;
+                    break;
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return textAdventureExists;
+    }
+
 
 
     //[4]: registrieren
@@ -56,16 +77,16 @@ public class Database {
             registeredUsers.add(user);
             JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
 
-
     }
 
-    public boolean checkIfUserIsExisting(RegisteredUser user) {
+    public boolean checkIfUserIsExisting(String userName) {
         boolean userExists = false;
 
         try{
-            for(int i=0; i<registeredUsers.size(); i++) {
-                if(user.getUsername().equals(registeredUsers.get(i).getUsername())){
+            for (RegisteredUser user : registeredUsers) {
+                if (userName.equals(user.getUsername())) {
                     userExists = true;
+                    break;
                 }
             }
 
@@ -88,15 +109,6 @@ public class Database {
 
     public void getTextAdventureTitlesAsStrings(){
 
-        try{
-
-            adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
-            adventures.adventures.get(0);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            //no file
-        }
     }
 
 

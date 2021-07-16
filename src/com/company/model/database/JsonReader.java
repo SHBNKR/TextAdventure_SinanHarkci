@@ -15,16 +15,19 @@ public class JsonReader{
     public static Adventure readExistingTextAdventureFileFromSystem() throws IOException {
         Gson gson = new Gson();
         Reader reader = Files.newBufferedReader(Paths.get("adventure.json"));
-        Adventure addven = gson.fromJson(reader, Adventure.class);
+        Adventure adventure = gson.fromJson(reader, Adventure.class);
 
         reader.close();
-        return addven;
+        return adventure;
     }
 
     public static Adventures readExistingTextAdventuresFileFromSystem() throws IOException {
-        String file = "adventures.json";
-        String json = new String(Files.readAllBytes(Paths.get(file)));
-        return new Gson().fromJson(json, Adventures.class);
+        Gson gson = new Gson();
+        Reader reader = Files.newBufferedReader(Paths.get("adventure.json"));
+        Adventures adventures = gson.fromJson(reader, Adventures.class);
+
+        reader.close();
+        return adventures;
     }
 
     public static RegisteredUsers readExistingRegisteredUserFileFromSystem() throws IOException {

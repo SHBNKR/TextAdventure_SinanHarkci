@@ -4,6 +4,7 @@ import com.company.model.database.Database;
 import com.company.model.database.JsonReader;
 import com.company.model.database.JsonWriter;
 import com.company.model.datatypes.Adventure;
+import com.company.model.datatypes.Adventures;
 import com.company.model.user.RegisteredUser;
 import com.company.view.View;
 
@@ -14,6 +15,7 @@ import java.util.regex.Pattern;
 public class TextAdventure {
 
     private Adventure adventure;
+    private Adventures adventures;
 
     //starts the application
     public void startTextAdventure() throws IOException {
@@ -72,12 +74,13 @@ public class TextAdventure {
 
        // ArrayList<Adventure> adventures = Database.getInstance().get
         //load TextAdventure title from JSON file
-        Adventure add = JsonReader.readExistingTextAdventureFileFromSystem();
+
 
         //check for title
-        if (textAdventureTitle.equals(add.getTitle())) {
+        if (Database.getInstance().checkIfTextAdventureTitleIsMatching(textAdventureTitle)) {
+            Adventure adventure = Database.getInstance().searchForTextAdventure(textAdventureTitle);
 
-            startToPlayTextAdventure(View.startToPlay(textAdventureTitle), add);
+            startToPlayTextAdventure(View.startToPlay(textAdventureTitle), adventure);
         }
         else {
             handleTextAdventureNotFoundMask(View.showNotFoundTextAdventure());
@@ -112,7 +115,15 @@ public class TextAdventure {
             }
             View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
 
-            JsonWriter.writeAdventureFileToSystem(createAdventure);
+            //Check if textadventure with title is already existing
+
+          /*  if(Database.getInstance().checkIfTextAdventureIsExisting(createAdventure.getTitle())) {
+                System.err.println("TextAdventure is already existing");
+            }*/
+
+            Database.getInstance().addTextAdventure(createAdventure);
+            handleUserInputFromStart(4);
+
         }
         //show statistics
         else if (i == 2) {
@@ -151,15 +162,12 @@ public class TextAdventure {
             invalidUserNameError();
         } else {
 
-            RegisteredUser newUser = new RegisteredUser(userData);
-            if(Database.getInstance().checkIfUserIsExisting(newUser)){
+            if(Database.getInstance().checkIfUserIsExisting(userData[0])){
                 userAlreadyExistsError();
             } else {
+                RegisteredUser newUser = new RegisteredUser(userData);
                 Database.getInstance().addUser(newUser);
             }
-
-
-       //     JsonWriter.writeRegisteredUserFileToSystem(list);
         }
     }
 
@@ -192,7 +200,7 @@ public class TextAdventure {
             }
             startTextAdventure();
         } else{
-            System.err.println("exit");
+            startTextAdventure();
         }
     }
 
@@ -225,7 +233,7 @@ public class TextAdventure {
             System.out.println("Danke dass du TextAdventure gespielt hast...");
             return "exit";
         } else {
-            System.out.println("Es tut mir leid, du bist am tRand der Karte angekommen. Der Weg nach: " + richtung +" endet hier ... .. .");
+            System.out.println("Es tut mir leid, du bist am Rand der Karte angekommen. Der Weg nach: " + richtung +" endet hier ... .. .");
         }
         return "";
     }
