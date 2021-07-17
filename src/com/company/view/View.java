@@ -255,6 +255,16 @@ public class View {
         }
     }
 
+    public static String showSelectedDirectionOutputAfterInput(String input) throws IOException {
+        if(input.equals("exit")){
+            System.out.println("Danke dass du TextAdventure gespielt hast...");
+            return "exit";
+        } else {
+            System.out.println("Es tut mir leid, du bist am Rand der Karte angekommen. Der Weg nach: " + input + " endet hier ... .. .");
+        }
+        return "";
+    }
+
 
 
     //Error's & Exceptions
@@ -262,9 +272,9 @@ public class View {
     public static String showLoginError() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.err.println("[3]: Falscher username oder password!" +
+        System.err.println("[3]: Falscher Username oder Passwort!" +
                 " \nTippe [t] um es erneut zu probieren oder" +
-                " \n[irgendwas anders] um zurück zu kehren");
+                " \n[irgendwas anders] um ins Hauptmenü zu gelangen");
 
         return br.readLine();
     }
@@ -273,7 +283,7 @@ public class View {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.err.println("Bitte nur alphanumerische Zeichen als Usernamen!" +
                 " \nTippe [t] um es erneut zu probieren: " +
-                " \nTippe [irgendwas anders] um zurück zu kehren: ");
+                " \nTippe [irgendwas anders] um ins Hauptmenü zu gelangen");
 
         return br.readLine();
     }
@@ -283,7 +293,7 @@ public class View {
 
         System.err.println("[4] : Dieser Username existiert bereits! Bitte wähle ein anderes!" +
                 " \n[4] : Tippe [t] um es erneut zu probieren: " +
-                " \n[4] : Tippe [irgendwas anders] um zurück zu kehren: ");
+                " \n[4] : Tippe [irgendwas anders] um ins Hauptmenü zu gelangen");
 
         return br.readLine();
     }

@@ -39,7 +39,7 @@ public class TextAdventure {
             // [4]: register & goto logged in menu
             case (4):
                 handleUserRegister(View.showUserRegisterMask());
-             //   handleUserInputFromStart(3); goto login after register
+                //   handleUserInputFromStart(3); goto login after register
                 handleRegisteredUserMenu(View.showRegisteredUserMask());
                 break;
             // [5]: exit TextAdventure
@@ -81,32 +81,33 @@ public class TextAdventure {
         int pageSize = 5;       // 4 because List starts at 0
         int pageCount = 1;
 
-        if(adventures != null) {
-        pageCount = (adventures.size() / 5) + 1;
+        if (adventures != null) {
+            pageCount = (adventures.size() / 5) + 1;
 
 
-        // Creates Overview site for the count o
-        for (int x = 0; x <= pageCount; x++) {
+            // Creates Overview site for the count o
+            for (int x = 0; x <= pageCount; x++) {
 
-            ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(i, pageSize));
-            for(int y=0; y<5; y++){
-                System.out.println(newadventures.get(y).getTitle());
-            }
-            System.out.println(newadventures.get(i).getTitle());
-            pageSize += 5;
-            i+=5;
-            if (i == 5) {
-                String input = View.showTextAdventureOverViewMask();
-                if (input.equals("weiter")) {
-
-                } else if (input.equals("wählen")) {
-
-                } else {
-                    startTextAdventure();
+                ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(i, pageSize));
+                for (int y = 0; y < 5; y++) {
+                    System.out.println(newadventures.get(y).getTitle());
                 }
-            }
+                System.out.println(newadventures.get(i).getTitle());
+                pageSize += 5;
+                i += 5;
+                if (i == 5) {
+                    String input = View.showTextAdventureOverViewMask();
+                    if (input.equals("weiter")) {
 
-        }} else {
+                    } else if (input.equals("wählen")) {
+
+                    } else {
+                        startTextAdventure();
+                    }
+                }
+
+            }
+        } else {
             startTextAdventure();
         }
     }
@@ -116,10 +117,10 @@ public class TextAdventure {
     private void handleUserLogin(String[] loginData) throws IOException {
 
 
-        if((Database.getInstance().checkIfUserIsExisting(loginData[0]))){
-            if((Database.getInstance().checkIfPasswordEquals(loginData[1], loginData[0]))) {
+        if ((Database.getInstance().checkIfUserIsExisting(loginData[0]))) {
+            if ((Database.getInstance().checkIfPasswordEquals(loginData[1], loginData[0]))) {
                 handleRegisteredUserMenu(View.showRegisteredUserMask());
-            } else{
+            } else {
                 handleLoginError();
             }
         }
@@ -137,14 +138,13 @@ public class TextAdventure {
     }
 
     private void handleRegisteredUserMenu(int i) throws IOException {
-        //add TextAdventure
+        //create TextAdventure
         if (i == 1) {
 
             Adventure createAdventure = View.showCreateTextAdventureMask();
 
-
             //valid that startPosition is in Map!
-            while(!(createAdventure.getStartPosX() < createAdventure.getRows() && createAdventure.getStartPosY() < createAdventure.getColums())){
+            while (!(createAdventure.getStartPosX() < createAdventure.getRows() && createAdventure.getStartPosY() < createAdventure.getColums())) {
                 int[] newStartPositions = View.showInvalidTextAdventureInputMask(2);
                 createAdventure.setStartPosX(newStartPositions[0]);
                 createAdventure.setStartPosY(newStartPositions[1]);
@@ -160,8 +160,7 @@ public class TextAdventure {
             }*/
 
             Database.getInstance().addTextAdventure(createAdventure);
-            handleUserInputFromStart(4);
-
+            handleSearchTextAdventureMask(createAdventure.getTitle());
         }
         //show statistics
         else if (i == 2) {
@@ -268,13 +267,11 @@ public class TextAdventure {
             adventure.incrementCountpermove();
 
         } else if (richtung.equals("exit")) {
-            System.out.println("Danke dass du TextAdventure gespielt hast...");
+            View.showSelectedDirectionOutputAfterInput("exit");
             return "exit";
         } else {
-            System.out.println("Es tut mir leid, du bist am Rand der Karte angekommen. Der Weg nach: " + richtung + " endet hier ... .. .");
+            View.showSelectedDirectionOutputAfterInput(richtung);
         }
         return "";
     }
-
-
 }

@@ -31,8 +31,23 @@ public class Database {
 
         adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
 
+        if(adventures == null){
+            ArrayList<Adventure> adventures = new ArrayList<>();
+
+            adventures.add(adventure);
+            JsonWriter.writeAdventureFileToSystem(adventures);
+        } else {
+
+
+            adventures.add(adventure);
+            JsonWriter.writeAdventureFileToSystem(adventures);
+        }
+
+
+       /* adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
+
         adventures.add(adventure);
-        JsonWriter.writeAdventureFileToSystem(adventures);
+        JsonWriter.writeAdventureFileToSystem(adventures);*/
 
     }
 
