@@ -1,7 +1,6 @@
 package com.company.model.database;
 
 import com.company.model.datatypes.Adventure;
-import com.company.model.datatypes.Adventures;
 import com.company.model.user.RegisteredUser;
 import com.company.model.user.Gamer;
 import com.company.model.user.RegisteredUsers;
@@ -22,12 +21,9 @@ public class Database {
 
     Adventure adventure;
     RegisteredUser registeredUser;
-  //  Adventures adventures;
-  //  RegisteredUsers registeredUsers;
 
     ArrayList<Adventure> adventures = new ArrayList<>();
     ArrayList<RegisteredUser> registeredUsers = new ArrayList<>();
-
 
 
     //[3]: create Textadventure
@@ -55,18 +51,19 @@ public class Database {
         return adventure;
     }
 
-    public boolean checkIfTextAdventureTitleIsMatching(String title) {
+    public boolean checkIfTextAdventureTitleIsMatching(String title) throws IOException {
+
+
+
+        adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
+
         boolean textAdventureExists = false;
 
-        try{
-            for (Adventure value : adventures) {
-                if (title.equals(value.getTitle())) {
-                    textAdventureExists = true;
-                    break;
-                }
+        for (Adventure value : adventures) {
+            if (title.equals(value.getTitle())) {
+                textAdventureExists = true;
+                break;
             }
-        } catch (Exception e){
-            e.printStackTrace();
         }
         return textAdventureExists;
     }
@@ -75,7 +72,7 @@ public class Database {
 
     public ArrayList<Adventure> loadTextAdventuresList() throws IOException {
 
-        // adventures = JsonReader.readExistingTextAdventureFileFromSystem();
+         adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
 
 
         if(!adventures.isEmpty()){
@@ -85,27 +82,40 @@ public class Database {
         return null;
     }
 
+    //[3]: login
 
+    public boolean checkIfUserIsExisting(String userName) throws IOException {
 
+      //  registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
 
-
-    //[4]: registrieren
-
-    public void addUser(RegisteredUser user){
-        //   RegisteredUsers registeredUsers = JsonReader.readExistingRegisteredUserFileFromSystem();
-
-            registeredUsers.add(user);
-            JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
-
-    }
-
-    public boolean checkIfUserIsExisting(String userName) {
         boolean userExists = false;
 
         try{
+            if(registeredUsers != null ) {
+                for (RegisteredUser user : registeredUsers) {
+                    if (userName.equals(user.getUsername())) {
+                        userExists = true;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userExists;
+    }
+
+    public boolean checkIfPasswordEquals(String password) throws IOException {
+
+
+        registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
+
+        boolean passwordEquals = false;
+
+        try{
             for (RegisteredUser user : registeredUsers) {
-                if (userName.equals(user.getUsername())) {
-                    userExists = true;
+                if (password.equals(user.getPassword())) {
+                    passwordEquals = true;
                     break;
                 }
             }
@@ -113,8 +123,27 @@ public class Database {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    return userExists;
+        return passwordEquals;
     }
+
+
+
+
+
+    //[4]: registrieren
+
+    public void addUser(RegisteredUser user) throws IOException {
+
+        registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
+
+
+
+            registeredUsers.add(user);
+            JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
+
+    }
+
+
 
 
 

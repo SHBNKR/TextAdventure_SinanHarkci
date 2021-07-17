@@ -2,13 +2,11 @@ package com.company.controller;
 
 import com.company.model.database.Database;
 import com.company.model.database.JsonReader;
-import com.company.model.database.JsonWriter;
 import com.company.model.datatypes.Adventure;
-import com.company.model.datatypes.Adventures;
 import com.company.model.user.RegisteredUser;
+import com.company.model.user.RegisteredUsers;
 import com.company.view.View;
 
-import javax.swing.plaf.synth.SynthMenuBarUI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -35,30 +33,14 @@ public class TextAdventure {
                 break;
             //[3]: login & after
             case (3):
-//                String[] credentials = View.showLoginMask();
-//                RegisteredUser user = JsonReader.readExistingRegisteredUserFileFromSystem();
-//
-//                if (credentials[0].equals(RegisteredUser.getAdminUsername())) {
-//                    if (Database.checkPassword(credentials[1], true)) {
-//                        handleAdminMenu(View.showAdminMask());
-//                    } else {
-//                        handleLoginError();
-//                    }
-//                } else if(credentials[0].equals(user.getUsername())){
-//                    if(credentials[1].equals(user.getPassword())){
-//                        handleAdminMenu(View.showAdminMask());
-//                    } else {
-//                        handleLoginError();
-//                    }
-//                }
-//                else {
-//                    handleLoginError();
-//                }
+                handleUserLogin(View.showLoginMask());
+
                 break;
             // [4]: register & goto logged in menu
             case (4):
                 handleUserRegister(View.showUserRegisterMask());
-                handleAdminMenu(View.showAdminMask());
+             //   handleUserInputFromStart(3); goto login after register
+                handleRegisteredUserMenu(View.showRegisteredUserMask());
                 break;
             // [5]: exit TextAdventure
             default:
@@ -133,8 +115,32 @@ public class TextAdventure {
         }
     }
 
-    // [3] geklickt: als Admin anmelden
-    private void handleAdminMenu(int i) throws IOException {
+    // [3] geklickt: als Registrierter User anmelden
+
+    private void handleUserLogin(String[] loginData) throws IOException {
+
+
+        if((Database.getInstance().checkIfUserIsExisting(loginData[0]))){
+            if((Database.getInstance().checkIfPasswordEquals(loginData[1]))) {
+                handleRegisteredUserMenu(View.showRegisteredUserMask());
+            } else{
+                handleLoginError();
+            }
+        }
+
+        if (loginData[0].equals(RegisteredUser.getAdminUsername())) {
+            if (Database.checkPassword(loginData[1], true)) {
+                handleRegisteredUserMenu(View.showRegisteredUserMask());
+            } else {
+                handleLoginError();
+            }
+        } else {
+            handleLoginError();
+        }
+
+    }
+
+    private void handleRegisteredUserMenu(int i) throws IOException {
         //add TextAdventure
         if (i == 1) {
 

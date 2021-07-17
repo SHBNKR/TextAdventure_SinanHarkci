@@ -2,13 +2,17 @@ package com.company.model.database;
 
 import com.company.model.datatypes.Adventure;
 import com.company.model.datatypes.Adventures;
+import com.company.model.user.RegisteredUser;
 import com.company.model.user.RegisteredUsers;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class JsonReader{
 
@@ -19,17 +23,31 @@ public class JsonReader{
         return new Gson().fromJson(json, Adventure.class);
     }
 
-    public static Adventures readExistingTextAdventuresFileFromSystem() throws IOException {
+    public static ArrayList<Adventure> readExistingTextAdventuresFileFromSystem() throws IOException {
+        Gson gson = new Gson();
+        Reader reader = Files.newBufferedReader(Paths.get("adventure.json"));
+        ArrayList<Adventure> users = gson.fromJson(reader, new TypeToken<ArrayList<Adventure>>(){}.getType());
 
-        String json = new String(Files.readAllBytes(Paths.get("adventure.json")));
-
-        return new Gson().fromJson(json, Adventures.class);
+        reader.close();
+        return users;
     }
 
-    public static RegisteredUsers readExistingRegisteredUserFileFromSystem() throws IOException {
+
+
+
+    public static RegisteredUser readExistingRegisteredUserFileFromSystem() throws IOException {
         Gson gson = new Gson();
         Reader reader = Files.newBufferedReader(Paths.get("registereduser.json"));
-        RegisteredUsers users = gson.fromJson(reader, RegisteredUsers.class);
+        RegisteredUser user = gson.fromJson(reader, RegisteredUser.class);
+
+        reader.close();
+        return user;
+    }
+
+    public static ArrayList<RegisteredUser> readExistingRegisteredUsersFileFromSystem() throws IOException {
+        Gson gson = new Gson();
+        Reader reader = Files.newBufferedReader(Paths.get("registereduser.json"));
+        ArrayList<RegisteredUser> users = gson.fromJson(reader, new TypeToken<ArrayList<RegisteredUser>>(){}.getType());
 
         reader.close();
         return users;

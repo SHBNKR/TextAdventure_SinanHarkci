@@ -65,10 +65,10 @@ public class View {
     }
 
     // [3]: Eingeloggt Menü:
-    public static int showAdminMask() throws IOException {
+    public static int showRegisteredUserMask() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("[3]: Du bist als Admin eingeloggt:");
+        System.out.println("[3]: Du bist als Registrierter User eingeloggt:");
         System.out.println("[3]: ---- Tippe [1] : Ein TextAdventure erstellen ---");
         System.out.println("[3]: ---- Tippe [2] : In deine Statistiken einsehen ---");
         System.out.println("[3]: ---- Tippe [irgendwas] : Um zum Hauptmenü zu gelangen ---");
@@ -262,7 +262,7 @@ public class View {
     public static String showLoginError() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.err.println("Falscher username oder password!" +
+        System.err.println("[3]: Falscher username oder password!" +
                 " \nTippe [t] um es erneut zu probieren oder" +
                 " \n[irgendwas anders] um zurück zu kehren");
 
@@ -281,11 +281,15 @@ public class View {
     public static String showUserAlreadyExistsError() throws  IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.err.println("Dieser Username existiert bereits! Bitte wähle ein anderes!" +
-                " \nTippe [t] um es erneut zu probieren: " +
-                " \nTippe [irgendwas anders] um zurück zu kehren: ");
+        System.err.println("[4] : Dieser Username existiert bereits! Bitte wähle ein anderes!" +
+                " \n[4] : Tippe [t] um es erneut zu probieren: " +
+                " \n[4] : Tippe [irgendwas anders] um zurück zu kehren: ");
 
         return br.readLine();
+    }
+
+    public static void showUserNotExistsError() throws  IOException {
+
     }
 
 
