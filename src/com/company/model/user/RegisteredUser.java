@@ -6,13 +6,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RegisteredUser{
 
     private static ArrayList<RegisteredUser> registeredUsers;
-
     public static ArrayList<RegisteredUser> getRegisteredUsers() {
         return registeredUsers;
     }
 
 
     private static final AtomicInteger uniqueId = new AtomicInteger();
+
     private  int ID;
     private String username;
     private String password;
@@ -22,26 +22,23 @@ public class RegisteredUser{
 
 
     public RegisteredUser(String[] userData) {
-        ID = uniqueId.incrementAndGet();
+        ID = uniqueId.getAndIncrement();
         this.username = userData[0];
         this.password = userData[1];
     }
 
-
     public  String getUsername() {
         return username;
     }
-
     public  String getPassword() {
         return password;
     }
 
-
+    public int getID() { return ID; }
 
     public static String getAdminUsername() {
         return adminUsername;
     }
-
     public static String getAdminPassword() {
         return adminPassword;
     }

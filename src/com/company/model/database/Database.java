@@ -27,16 +27,18 @@ public class Database {
 
 
     //[3]: create Textadventure
-    public void addTextAdventure(Adventure adventure){
-     adventures.add(adventure);
-     JsonWriter.writeAdventureFileToSystem(adventures);
+    public void addTextAdventure(Adventure adventure) throws IOException {
+
+        adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
+
+        adventures.add(adventure);
+        JsonWriter.writeAdventureFileToSystem(adventures);
 
     }
 
     //[1]: search Textadventure
     public Adventure searchForTextAdventure(String title) {
-        int ID = 0;
-        try{
+        try {
             for (Adventure value : adventures) {
                 if (title.equals(value.getTitle())) {
                     adventure = value;
@@ -44,7 +46,7 @@ public class Database {
                 }
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -52,7 +54,6 @@ public class Database {
     }
 
     public boolean checkIfTextAdventureTitleIsMatching(String title) throws IOException {
-
 
 
         adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
@@ -72,10 +73,10 @@ public class Database {
 
     public ArrayList<Adventure> loadTextAdventuresList() throws IOException {
 
-         adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
+        adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
 
 
-        if(!adventures.isEmpty()){
+        if (!adventures.isEmpty()) {
             return adventures;
         }
 
@@ -86,14 +87,16 @@ public class Database {
 
     public boolean checkIfUserIsExisting(String userName) throws IOException {
 
-      //  registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
+        registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
 
         boolean userExists = false;
+        String username;
 
-        try{
-            if(registeredUsers != null ) {
+        try {
+            if (registeredUsers != null) {
                 for (RegisteredUser user : registeredUsers) {
                     if (userName.equals(user.getUsername())) {
+                        username = user.getUsername();
                         userExists = true;
                         break;
                     }
@@ -105,19 +108,24 @@ public class Database {
         return userExists;
     }
 
-    public boolean checkIfPasswordEquals(String password) throws IOException {
+    public boolean checkIfPasswordEquals(String password, String username) throws IOException {
 
 
         registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
 
         boolean passwordEquals = false;
 
-        try{
+
+        try {
             for (RegisteredUser user : registeredUsers) {
-                if (password.equals(user.getPassword())) {
-                    passwordEquals = true;
-                    break;
+                if (username.equals(user.getUsername())) {
+                    int ID = user.getID();
+                    if ((username.equals(registeredUsers.get(ID).getUsername()) && (password.equals(registeredUsers.get(ID).getPassword())))) {
+                        passwordEquals = true;
+                        break;
+                    }
                 }
+
             }
 
         } catch (Exception e) {
@@ -127,40 +135,38 @@ public class Database {
     }
 
 
-
-
-
     //[4]: registrieren
 
     public void addUser(RegisteredUser user) throws IOException {
 
         registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
+        if(registeredUsers == null){
+            ArrayList<RegisteredUser> registeredUsers = new ArrayList<>();
 
+            registeredUsers.add(user);
+            JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
+        } else {
 
 
             registeredUsers.add(user);
             JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
+        }
 
     }
 
 
-
-
-
     public static boolean checkPassword(String password, boolean isAdmin) {
 
-        if(isAdmin) {
+        if (isAdmin) {
             return password.equals(RegisteredUser.getAdminPassword());
         } else {
             return password.equals(Gamer.getPassword());
         }
     }
 
-    public void getTextAdventureTitlesAsStrings(){
+    public void getTextAdventureTitlesAsStrings() {
 
     }
-
-
 
 
 }

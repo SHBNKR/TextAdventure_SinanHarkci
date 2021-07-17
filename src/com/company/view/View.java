@@ -42,13 +42,13 @@ public class View {
         return input;
     }
 
-    public static int showNotFoundTextAdventure() throws  IOException {
+    public static String showNotFoundTextAdventure() throws  IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.err.println("[1]: Dein gesuchtes TextAdventure wurde nicht gefunden " +
-                "\nTippe [1] um es erneut zu suchen \nTippe [2] um zum Hauptmenü zu gelangen");
+                "\nTippe [t] um es erneut zu suchen \nTippe [irgendwas anderes] um ins Hauptmenü zu gelangen");
 
-        return parseInt(br.readLine());
+        return br.readLine();
     }
 
     // [2]: TextAdventure Übersicht anzeigen

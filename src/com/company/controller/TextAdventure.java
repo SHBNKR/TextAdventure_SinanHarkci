@@ -54,10 +54,6 @@ public class TextAdventure {
     // [1] geklickt: TextAdventure suchen --> TextAdventure starten
     private void handleSearchTextAdventureMask(String textAdventureTitle) throws IOException {
 
-        // ArrayList<Adventure> adventures = Database.getInstance().get
-        //load TextAdventure title from JSON file
-
-
         //check for title
         if (Database.getInstance().checkIfTextAdventureTitleIsMatching(textAdventureTitle)) {
             Adventure adventure = Database.getInstance().searchForTextAdventure(textAdventureTitle);
@@ -70,10 +66,10 @@ public class TextAdventure {
 
     }
 
-    private void handleTextAdventureNotFoundMask(int userInputAfterNotFound) throws IOException {
-        if (userInputAfterNotFound == 1) {
+    private void handleTextAdventureNotFoundMask(String userInputAfterNotFound) throws IOException {
+        if (userInputAfterNotFound.equals("t")) {
             handleUserInputFromStart(1);
-        } else if (userInputAfterNotFound == 2) {
+        } else {
             startTextAdventure();
         }
     }
@@ -121,7 +117,7 @@ public class TextAdventure {
 
 
         if((Database.getInstance().checkIfUserIsExisting(loginData[0]))){
-            if((Database.getInstance().checkIfPasswordEquals(loginData[1]))) {
+            if((Database.getInstance().checkIfPasswordEquals(loginData[1], loginData[0]))) {
                 handleRegisteredUserMenu(View.showRegisteredUserMask());
             } else{
                 handleLoginError();

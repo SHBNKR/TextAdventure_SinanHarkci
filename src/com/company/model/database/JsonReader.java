@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 public class JsonReader{
 
-    public static Adventure readExistingTextAdventureFileFromSystem() throws IOException {
+  /*  public static Adventure readExistingTextAdventureFileFromSystem() throws IOException {
 
         String json = String.valueOf(Files.newBufferedReader(Paths.get("adventure.json")));
 
         return new Gson().fromJson(json, Adventure.class);
     }
-
+*/
     public static ArrayList<Adventure> readExistingTextAdventuresFileFromSystem() throws IOException {
         Gson gson = new Gson();
         Reader reader = Files.newBufferedReader(Paths.get("adventure.json"));
@@ -33,7 +33,7 @@ public class JsonReader{
     }
 
 
-
+/*
 
     public static RegisteredUser readExistingRegisteredUserFileFromSystem() throws IOException {
         Gson gson = new Gson();
@@ -42,7 +42,7 @@ public class JsonReader{
 
         reader.close();
         return user;
-    }
+    }*/
 
     public static ArrayList<RegisteredUser> readExistingRegisteredUsersFileFromSystem() throws IOException {
         Gson gson = new Gson();
