@@ -5,6 +5,7 @@ import com.company.model.datatypes.Adventure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.Integer.parseInt;
 
@@ -54,10 +55,10 @@ public class View {
     public static String showTextAdventureOverViewMask() throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("[2]: Sie möchten eine Übersicht der TextAdventure's erhalten");
-        String searchTextAdventure = View.showSearchTextAdventureMask();
-        searchTextAdventure = searchTextAdventure.substring(0,1).toUpperCase() + searchTextAdventure.substring(1).toLowerCase();
-        System.out.println(searchTextAdventure);
+        System.out.println("[2]: Sie möchten eine Übersicht aller TextAdventure's erhalten");
+        System.out.println("[2]: Tippe [weiter] um weitere 5 TextAdventures zu laden .. ");
+        System.out.println("[2]: Tippe [wählen] um ein TextAdventure zu starten .. ");
+        System.out.println("[2]: Tippe [irgendwas anderes] um ins Hauptmenü zu gelangen ");
 
         return br.readLine();
 
@@ -102,7 +103,9 @@ public class View {
         int rows = parseInt(br.readLine());
         System.out.println("Bitte geben Sie die Anzahl ihrer Spalten an: ");
         int colums = parseInt(br.readLine());
-        System.out.print("Bitte bestimmen Sie den Startpunkt Ihres Spiels \nStartpunkt Reihe : ");
+        System.out.print("Bitte bestimmen Sie den Startpunkt Ihres Spiels." +
+                "\nDas erste Feld ist [0;0] ! " +
+                "\nStartpunkt Reihe : ");
         int startPosX = parseInt(br.readLine());
         System.out.print("Startpunkt Spalte : " );
         int startPosY = parseInt(br.readLine());
@@ -119,11 +122,38 @@ public class View {
         //boolean freigabe setzen & jenachdem in Übersicht ausblenden
         boolean isActiveTextAdventure = parseBoolean(br.readLine());
         System.out.println("...... laden ... .. ...");
-        System.out.println("Das TextAdventure mit dem Titel: " + titel + " wurde erstellt:");
-        System.out.println("Sinan Harkci wünscht Ihnen Viel Spaß beim spielen");
+
 
         //make startPosX and startPosY -1 for make startPosition at  [0;0];
         return new Adventure(titel , rows,  colums,  startPosX,  startPosY,  isActiveTextAdventure, locationNames);
+    }
+
+    //
+    public static int[] showInvalidTextAdventureInputMask(int i) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int row;
+        int column;
+        int startPosX;
+        int startPosY;
+
+        //Rows and Columns < 10
+        if(i == 1) {
+            System.err.println("Bitte Werte für Reihe & Spalte bis 8 eingeben um die Übersicht zu behalten");
+            System.out.println("Bitte geben Sie die Anzahl ihrer Reihen an: ");
+            row = parseInt(br.readLine());
+            System.out.println("Bitte geben Sie die Anzahl ihrer Spalten an: ");
+            column = parseInt(br.readLine());
+            return new int[]{row, column};
+        } else if(i==2) {
+            System.out.println("Bitte die Startposition im Spielfeld halten: ");
+            System.out.print("Bitte bestimmen Sie den Startpunkt Ihres Spiels. Das erste Feld ist [0;0] ! \nStartpunkt Reihe : ");
+            startPosX = parseInt(br.readLine());
+            System.out.print("Startpunkt Spalte : " );
+            startPosY = parseInt(br.readLine());
+            return new int[]{startPosX,startPosY};
+        }
+
+        return new int[0];
     }
 
     public static int showTextAdventureStatisticsMask() throws IOException {
@@ -265,6 +295,10 @@ public class View {
         return "Das Spielfeld hat: " + rows + " Reihen & " + columns + " Zeilen";
     }
 
+    public static void showSuccessFullAdded(String titel){
+        System.out.println("Das TextAdventure mit dem Titel: " + titel + " wurde erstellt:");
+        System.out.println("Sinan Harkci wünscht Ihnen Viel Spaß beim spielen");
+    }
 
 
 }

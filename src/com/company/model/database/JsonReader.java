@@ -13,30 +13,26 @@ import java.nio.file.Paths;
 public class JsonReader{
 
     public static Adventure readExistingTextAdventureFileFromSystem() throws IOException {
-        Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("adventure.json"));
-        Adventure adventure = gson.fromJson(reader, Adventure.class);
 
-        reader.close();
-        return adventure;
+        String json = String.valueOf(Files.newBufferedReader(Paths.get("adventure.json")));
+
+        return new Gson().fromJson(json, Adventure.class);
     }
 
     public static Adventures readExistingTextAdventuresFileFromSystem() throws IOException {
-        Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("adventure.json"));
-        Adventures adventures = gson.fromJson(reader, Adventures.class);
 
-        reader.close();
-        return adventures;
+        String json = new String(Files.readAllBytes(Paths.get("adventure.json")));
+
+        return new Gson().fromJson(json, Adventures.class);
     }
 
     public static RegisteredUsers readExistingRegisteredUserFileFromSystem() throws IOException {
         Gson gson = new Gson();
         Reader reader = Files.newBufferedReader(Paths.get("registereduser.json"));
-        RegisteredUsers user = gson.fromJson(reader, RegisteredUsers.class);
+        RegisteredUsers users = gson.fromJson(reader, RegisteredUsers.class);
 
         reader.close();
-        return user;
+        return users;
     }
 
 

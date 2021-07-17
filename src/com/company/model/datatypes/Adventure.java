@@ -53,17 +53,19 @@ public class Adventure {
         this.countpermove = countpermove++;
     }
 
-
-    public int getStartPosX() { return startPosX; }
-    public int getStartPosY() { return startPosY; }
-
-    public boolean isActive() { return isActive; }
-
     public int getRows(){ return row; }
     public int getColums() { return column; }
 
+    public void setRow(int row) { this.row = row; }
+    public void setColumn(int column) { this.column = column; }
+
+    public boolean isActive() { return isActive; }
+
     public void setStartPosX(int startPosX) { this.startPosX = startPosX; }
     public void setStartPosY(int startPosY) { this.startPosY = startPosY; }
+
+    public int getStartPosX() { return startPosX; }
+    public int getStartPosY() { return startPosY; }
 
     public String[][] getLocationNames() { return locationNames; }
 

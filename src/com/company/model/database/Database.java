@@ -1,9 +1,12 @@
 package com.company.model.database;
 
 import com.company.model.datatypes.Adventure;
+import com.company.model.datatypes.Adventures;
 import com.company.model.user.RegisteredUser;
 import com.company.model.user.Gamer;
+import com.company.model.user.RegisteredUsers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Database {
@@ -19,6 +22,9 @@ public class Database {
 
     Adventure adventure;
     RegisteredUser registeredUser;
+  //  Adventures adventures;
+  //  RegisteredUsers registeredUsers;
+
     ArrayList<Adventure> adventures = new ArrayList<>();
     ArrayList<RegisteredUser> registeredUsers = new ArrayList<>();
 
@@ -31,6 +37,7 @@ public class Database {
 
     }
 
+    //[1]: search Textadventure
     public Adventure searchForTextAdventure(String title) {
         int ID = 0;
         try{
@@ -38,8 +45,6 @@ public class Database {
                 if (title.equals(value.getTitle())) {
                     adventure = value;
                     break;
-                } else {
-                    System.err.println("not found");
                 }
             }
 
@@ -49,7 +54,6 @@ public class Database {
 
         return adventure;
     }
-
 
     public boolean checkIfTextAdventureTitleIsMatching(String title) {
         boolean textAdventureExists = false;
@@ -66,6 +70,22 @@ public class Database {
         }
         return textAdventureExists;
     }
+
+    //[2]: Overview
+
+    public ArrayList<Adventure> loadTextAdventuresList() throws IOException {
+
+        // adventures = JsonReader.readExistingTextAdventureFileFromSystem();
+
+
+        if(!adventures.isEmpty()){
+            return adventures;
+        }
+
+        return null;
+    }
+
+
 
 
 
