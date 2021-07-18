@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RegisteredUser{
 
     private static final AtomicInteger uniqueId = new AtomicInteger();
-
     private  int ID;
     private String username;
     private String password;
