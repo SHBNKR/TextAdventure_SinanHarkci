@@ -36,8 +36,8 @@ public class TextAdventure {
             // [4]: register & goto logged in menu
             case (4):
                 handleUserRegister(View.showUserRegisterMask());
-               //    handleUserInputFromStart(3); // goto login after register
-                handleRegisteredUserMenu(View.showRegisteredUserMask());        //logged in , after register
+                handleUserInputFromStart(3);                                   // goto login after register
+              //  handleRegisteredUserMenu(View.showRegisteredUserMask());    //logged in , after register
                 break;
             // [5]: exit TextAdventure
             default:
@@ -80,6 +80,10 @@ public class TextAdventure {
         int pageCount = 1;
 
         if(adventures != null) {
+            if(adventures.size() < 5) {
+                View.showNotFiveTextAdventures();
+                startTextAdventure();
+            }
 
             if(adventures.size() > 5)
                 pageCount = adventures.size() / 5;

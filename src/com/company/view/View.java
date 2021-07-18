@@ -92,6 +92,12 @@ public class View {
         return br.readLine();
     }
 
+    public static void showNotFiveTextAdventures() throws IOException {
+        System.err.println("[2]: Es sind noch keine 5 TextAdventures verfügbar um Sie anzuzeigen" +
+                "\nRegistrier dich doch und füg welche hinzu:" +
+                "\nDu wirst ins Hauptmenü weitergeleitet");
+    }
+
     // [3]: Eingeloggt Menü:
     public static int showRegisteredUserMask() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
