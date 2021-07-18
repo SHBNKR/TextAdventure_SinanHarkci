@@ -1,6 +1,5 @@
 package com.company.model.user;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RegisteredUser{
@@ -15,9 +14,13 @@ public class RegisteredUser{
 
 
     public RegisteredUser(String[] userData) {
-        ID = uniqueId.getAndIncrement();
+     //   ID = uniqueId.getAndIncrement();
         this.username = userData[0];
         this.password = userData[1];
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public  String getUsername() {

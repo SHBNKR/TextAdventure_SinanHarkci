@@ -18,7 +18,7 @@ public class Adventure {
 
 
     public Adventure(String titel, int row, int column, int startPosX, int startPosY, boolean isActive, String[][] locationNames){
-        ID = uniqueId.getAndIncrement();
+    //    ID = uniqueId.getAndIncrement();
         this.titel = titel;
         this.row = row;
         this.column = column;

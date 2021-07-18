@@ -35,21 +35,10 @@ public class Database {
             adventures.add(adventure);
             JsonWriter.writeAdventureFileToSystem(adventures);
         } else {
-            if (adventures.size() == 1) {
-                adventure.setID(1);
-            } else {
-            adventure.setID(adventures.size()+1);
-            }
+            adventure.setID(adventures.size());
             adventures.add(adventure);
             JsonWriter.writeAdventureFileToSystem(adventures);
         }
-
-
-       /* adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
-
-        adventures.add(adventure);
-        JsonWriter.writeAdventureFileToSystem(adventures);*/
-
     }
 
     //[1]: search Textadventure
@@ -155,14 +144,14 @@ public class Database {
     public void addUser(RegisteredUser user) throws IOException {
 
         registeredUsers = JsonReader.readExistingRegisteredUsersFileFromSystem();
+
         if(registeredUsers == null){
             ArrayList<RegisteredUser> registeredUsers = new ArrayList<>();
 
             registeredUsers.add(user);
             JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
         } else {
-
-
+            user.setID(registeredUsers.size());
             registeredUsers.add(user);
             JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
         }

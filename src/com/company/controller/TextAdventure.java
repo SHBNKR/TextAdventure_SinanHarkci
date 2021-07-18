@@ -36,8 +36,8 @@ public class TextAdventure {
             // [4]: register & goto logged in menu
             case (4):
                 handleUserRegister(View.showUserRegisterMask());
-                //   handleUserInputFromStart(3); goto login after register
-                handleRegisteredUserMenu(View.showRegisteredUserMask());
+               //    handleUserInputFromStart(3); // goto login after register
+                handleRegisteredUserMenu(View.showRegisteredUserMask());        //logged in , after register
                 break;
             // [5]: exit TextAdventure
             default:

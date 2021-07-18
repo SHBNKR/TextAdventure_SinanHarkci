@@ -229,5 +229,26 @@
         "123"
       ]
     ]
+  },
+  {
+    "ID": 11,
+    "titel": "huhuhu",
+    "countperplay": 0,
+    "countpermove": 0,
+    "row": 2,
+    "column": 2,
+    "startPosX": 0,
+    "startPosY": 0,
+    "isActive": true,
+    "locationNames": [
+      [
+        "123",
+        "123"
+      ],
+      [
+        "123",
+        "123"
+      ]
+    ]
   }
 ]
