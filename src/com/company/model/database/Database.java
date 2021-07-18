@@ -2,8 +2,6 @@ package com.company.model.database;
 
 import com.company.model.datatypes.Adventure;
 import com.company.model.user.RegisteredUser;
-import com.company.model.user.Gamer;
-import com.company.model.user.RegisteredUsers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class Database {
     Adventure adventure;
     RegisteredUser registeredUser;
 
-    ArrayList<Adventure> adventures = new ArrayList<>();
+    ArrayList<Adventure> adventures;
     ArrayList<RegisteredUser> registeredUsers = new ArrayList<>();
 
 
@@ -37,8 +35,9 @@ public class Database {
             adventures.add(adventure);
             JsonWriter.writeAdventureFileToSystem(adventures);
         } else {
-
-
+            if (adventures.size() != 1) {
+                adventure.setID(adventures.size() + 1);
+            }
             adventures.add(adventure);
             JsonWriter.writeAdventureFileToSystem(adventures);
         }
@@ -167,16 +166,6 @@ public class Database {
             JsonWriter.writeRegisteredUserFileToSystem(registeredUsers);
         }
 
-    }
-
-
-    public static boolean checkPassword(String password, boolean isAdmin) {
-
-        if (isAdmin) {
-            return password.equals(RegisteredUser.getAdminPassword());
-        } else {
-            return password.equals(Gamer.getPassword());
-        }
     }
 
     public void getTextAdventureTitlesAsStrings() {

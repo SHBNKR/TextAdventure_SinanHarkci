@@ -1,18 +1,14 @@
 package com.company.model.database;
 
 import com.company.model.datatypes.Adventure;
-import com.company.model.datatypes.Adventures;
 import com.company.model.user.RegisteredUser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.List;
 
 public class JsonWriter {
 

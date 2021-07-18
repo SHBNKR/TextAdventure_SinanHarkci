@@ -5,12 +5,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RegisteredUser{
 
-    private static ArrayList<RegisteredUser> registeredUsers;
-    public static ArrayList<RegisteredUser> getRegisteredUsers() {
-        return registeredUsers;
-    }
-
-
     private static final AtomicInteger uniqueId = new AtomicInteger();
 
     private  int ID;

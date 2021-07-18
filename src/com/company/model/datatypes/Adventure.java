@@ -1,6 +1,5 @@
 package com.company.model.datatypes;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Adventure {
@@ -26,7 +25,6 @@ public class Adventure {
         this.startPosX = startPosX;
         this.startPosY = startPosY;
         this.isActive = isActive;
- //       this.map = new String[row][column];
         this.locationNames = locationNames;
     }
 
@@ -34,6 +32,7 @@ public class Adventure {
     public int getID() {
         return ID;
     }
+    public void setID(int ID) { this.ID = ID; }
 
     public String getTitle() {
         return titel;

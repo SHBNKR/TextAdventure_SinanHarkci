@@ -1,10 +1,8 @@
 package com.company.controller;
 
 import com.company.model.database.Database;
-import com.company.model.database.JsonReader;
 import com.company.model.datatypes.Adventure;
 import com.company.model.user.RegisteredUser;
-import com.company.model.user.RegisteredUsers;
 import com.company.view.View;
 
 import java.io.IOException;
@@ -34,7 +32,6 @@ public class TextAdventure {
             //[3]: login & after
             case (3):
                 handleUserLogin(View.showLoginMask());
-
                 break;
             // [4]: register & goto logged in menu
             case (4):
@@ -105,7 +102,6 @@ public class TextAdventure {
                         startTextAdventure();
                     }
                 }
-
             }
         } else {
             startTextAdventure();
@@ -123,18 +119,9 @@ public class TextAdventure {
             } else {
                 handleLoginError();
             }
-        }
-
-        if (loginData[0].equals(RegisteredUser.getAdminUsername())) {
-            if (Database.checkPassword(loginData[1], true)) {
-                handleRegisteredUserMenu(View.showRegisteredUserMask());
-            } else {
-                handleLoginError();
-            }
         } else {
             handleLoginError();
         }
-
     }
 
     private void handleRegisteredUserMenu(int i) throws IOException {

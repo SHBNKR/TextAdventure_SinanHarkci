@@ -6,28 +6,7 @@
     "countpermove": 0,
     "row": 2,
     "column": 2,
-    "startPosX": 0,
-    "startPosY": 0,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 1,
-    "titel": "sinan",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 0,
+    "startPosX": 1,
     "startPosY": 1,
     "isActive": true,
     "locationNames": [
@@ -42,90 +21,29 @@
     ]
   },
   {
-    "ID": 2,
-    "titel": "kuckuck",
+    "ID": 1,
+    "titel": "zu",
     "countperplay": 0,
     "countpermove": 0,
     "row": 2,
-    "column": 1,
-    "startPosX": 0,
-    "startPosY": 0,
+    "column": 2,
+    "startPosX": 1,
+    "startPosY": 1,
     "isActive": true,
     "locationNames": [
       [
-        "123"
+        "123",
+        "12"
       ],
       [
+        "123",
         "123"
       ]
     ]
   },
   {
     "ID": 3,
-    "titel": "tutt",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 0,
-    "startPosY": 0,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 4,
-    "titel": "bla",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 0,
-    "startPosY": 0,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 5,
-    "titel": "zuck",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 0,
-    "startPosY": 0,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 0,
-    "titel": "ttt",
+    "titel": "sinan",
     "countperplay": 0,
     "countpermove": 0,
     "row": 2,
