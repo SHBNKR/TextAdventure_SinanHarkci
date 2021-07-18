@@ -6,17 +6,17 @@
     "countpermove": 0,
     "row": 2,
     "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
+    "startPosX": 0,
+    "startPosY": 0,
     "isActive": true,
     "locationNames": [
       [
-        "123",
-        "123"
+        "1",
+        "1"
       ],
       [
-        "123",
-        "123"
+        "1",
+        "1"
       ]
     ]
   },
@@ -32,222 +32,12 @@
     "isActive": true,
     "locationNames": [
       [
-        "123",
-        "12"
+        "1",
+        "1"
       ],
       [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 2,
-    "titel": "test2",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 3,
-    "titel": "test3",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 4,
-    "titel": "test4",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "12"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 5,
-    "titel": "test5",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 6,
-    "titel": "test6",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 7,
-    "titel": "test7",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "12"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 8,
-    "titel": "test8",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 10,
-    "titel": "test9",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 11,
-    "titel": "zzz",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 1,
-    "startPosY": 1,
-    "isActive": false,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
-      ]
-    ]
-  },
-  {
-    "ID": 11,
-    "titel": "huhuhu",
-    "countperplay": 0,
-    "countpermove": 0,
-    "row": 2,
-    "column": 2,
-    "startPosX": 0,
-    "startPosY": 0,
-    "isActive": true,
-    "locationNames": [
-      [
-        "123",
-        "123"
-      ],
-      [
-        "123",
-        "123"
+        "1",
+        "1"
       ]
     ]
   }
