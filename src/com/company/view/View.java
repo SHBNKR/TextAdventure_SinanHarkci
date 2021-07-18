@@ -78,7 +78,7 @@ public class View {
         System.out.println("[2]: Sie möchten eine Übersicht aller TextAdventure's erhalten");
         System.out.println("[2]: Es sind keine weiteren TextAdventure's vorhanden!");
         System.out.println("[2]: Tippe [wählen] um ein TextAdventure zu starten .. ");
-        System.out.println("[2]: Tippe [exit] um ins Hauptmenü zu gelangen ");
+        System.out.println("[2]: Tippe [irgendwas anders] um ins Hauptmenü zu gelangen ");
 
         return br.readLine();
     }
@@ -184,12 +184,36 @@ public class View {
         return new int[0];
     }
 
+
+    //Statistik
     public static int showTextAdventureStatisticsMask() throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("[3.2]: TextAdventure Statistiken anzeigen: " +
-                "\nTippe [1] Um einzusehen wie viele Spieler dein TextAdventure schon gespielt haben:  " +
-                "\nTippe [2] Um einzusehen wie viele Züge durchschnittlich Spieler auf deinem TextAdventure gespielt haben: ");
+                "\n[3.2]: Tippe [1] Um einzusehen wie viele Spieler dein TextAdventure schon gespielt haben:  " +
+                "\n[3.2]: Tippe [2] Um einzusehen wie viele Züge durchschnittlich Spieler auf deinem TextAdventure gespielt haben: ");
+        return parseInt(br.readLine());
+    }
+
+    public static int showHowOftenTextAdventureWasPlayed() throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("\n--------------  [STATISTIK]   --------------- \n");
+        System.out.println("[3.2]: TextAdventure Statisken anzeigen: \n" +
+                "\n[3.2.1]: Anzahl wie oft das TextAdventure gespielt wurde: " +
+                "\n[3.2.1]: Tippe [die Nummer] des TextAdventures ein um in seine Statistik einzusehen: ");
+
+        return parseInt(br.readLine());
+    }
+
+    public static int showHowOftenTextAdventurePlayerMoved() throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("\n--------------  [STATISTIK]   --------------- \n");
+        System.out.println("[3.2]: TextAdventure Statisken anzeigen: \n" +
+                "\n[3.2.1]: Anzahl wie viele Züge auf TextAdventure gemacht wurden: " +
+                "\n[3.2.1]: Tippe [die Nummer] des TextAdventures ein um in seine Statistik einzusehen: ");
+
         return parseInt(br.readLine());
     }
 

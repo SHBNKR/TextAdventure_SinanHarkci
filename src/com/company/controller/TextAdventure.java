@@ -98,7 +98,7 @@ public class TextAdventure {
                 handleTextAdventureOverViewInput(View.showTextAdventureOverViewMask());
             }
 
-            handleTextAdventureOverViewInput(View.showNoMoreTextAdventureOverViewMask());
+            handleTextAdventureOverViewExit(View.showNoMoreTextAdventureOverViewMask());
 
 
             // try to make Overview with Rest Overview ...
@@ -118,11 +118,8 @@ public class TextAdventure {
                 restAdventures = adventures.size() % 5;
                 pageCount++;
             }
-
             // Creates Overview site for the count o
             for (int x = 0; x <= pageCount; x++) {
-
-
                 if(x < pageCount && restAdventures == 0) {
                     ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(i, pageSize));
                     for (int y = 0; y < 5; y++) {
@@ -132,17 +129,13 @@ public class TextAdventure {
                 if((x == pageCount || x == 0) && restAdventures != 0){
 
                     ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(0, restAdventures));
-
-
                 }
                 else {
                     handleTextAdventureOverViewInput(View.showNoMoreTextAdventureOverViewMask());
                 }
                 pageSize += 5;
                 i += 5;
-
-                    handleTextAdventureOverViewInput(View.showTextAdventureOverViewMask());
-
+                    handleTextAdventureOverView(View.showTextAdventureOverViewMask());
             } */
         }
         else {
@@ -151,12 +144,19 @@ public class TextAdventure {
         }
     }
 
+    private void handleTextAdventureOverViewExit(String input) throws IOException {
+        if(input.equals("wählen")){
+            String selectedTextAdventureTitel = View.showSelectedTextedAdventure();
+            handleSearchTextAdventureMask(selectedTextAdventureTitel);
+        } else {
+            startTextAdventure();
+        }
+    }
+
     private void handleTextAdventureOverViewInput(String input) throws IOException {
         if(input.equals("wählen")){
             String selectedTextAdventureTitel = View.showSelectedTextedAdventure();
             handleSearchTextAdventureMask(selectedTextAdventureTitel);
-        } else if(input.equals("exit")) {
-            startTextAdventure();
         }
     }
 
@@ -208,14 +208,46 @@ public class TextAdventure {
     }
 
     private void handleShowStatisticsInput(int i) throws IOException {
-        //return how often his TA was played
-        if (i == 1) {
 
-        }
-        //return how often durchschnittlich his TA was played
-        else if (i == 2) {
+        ArrayList<Adventure> adventures = Database.getInstance().loadTextAdventuresList();
+        int titleCounter = 0;
 
+        if(adventures != null) {
+
+            for (int x = 0; x < adventures.size(); x++) {
+                System.out.println("TextAdventure Nr. [" + titleCounter++ + "] " + "Titel: " + adventures.get(x).getTitle() + "\t " + View.showMapSize(adventures.get(x).getRows(), adventures.get(x).getColums()));
+            }
+            //return how often his TA was played
+            if (i == 1) {
+
+                Adventure adventure = adventures.get(View.showHowOftenTextAdventureWasPlayed());
+                handleSelectedStatisticsInput(adventure, 1);
+                startTextAdventure();
+
+            }
+            //return how often durchschnittlich his TA was played
+            else if (i == 2) {
+                Adventure adventure = adventures.get(View.showHowOftenTextAdventurePlayerMoved());
+                handleSelectedStatisticsInput(adventure, 2);
+            }
+        } else {
+            View.showNotFoundTextAdventure();
+            startTextAdventure();
         }
+    }
+
+    private void handleSelectedStatisticsInput(Adventure adventure, int i) throws IOException {
+        int playedCounter = 0;
+        playedCounter = adventure.getCountperplay();
+        int movedCounter = adventure.getCountpermove();
+
+        if(i==1) {
+        System.out.println("Dein TextAdventure wurde von : " + playedCounter + " Spielern gespielt");
+        } else if(i==2) {
+            int averageMovedCounter = movedCounter / playedCounter;
+            System.out.println("Auf deinem TextAdventure wurden durschnittlich: " + averageMovedCounter + " Züge gemacht");
+        }
+
     }
 
     private void handleLoginError() throws IOException {
@@ -266,6 +298,7 @@ public class TextAdventure {
 
     private void startToPlayTextAdventure(boolean wantToPlay, Adventure adventure) throws IOException {
         if (wantToPlay) {
+            adventure.incrementCountperPlay();
             View.startTextAdventureText(adventure.getTitle());
             View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
             String direction = "";

@@ -187,5 +187,47 @@
         "123"
       ]
     ]
+  },
+  {
+    "ID": 10,
+    "titel": "test9",
+    "countperplay": 0,
+    "countpermove": 0,
+    "row": 2,
+    "column": 2,
+    "startPosX": 1,
+    "startPosY": 1,
+    "isActive": true,
+    "locationNames": [
+      [
+        "123",
+        "123"
+      ],
+      [
+        "123",
+        "123"
+      ]
+    ]
+  },
+  {
+    "ID": 11,
+    "titel": "zzz",
+    "countperplay": 0,
+    "countpermove": 0,
+    "row": 2,
+    "column": 2,
+    "startPosX": 1,
+    "startPosY": 1,
+    "isActive": false,
+    "locationNames": [
+      [
+        "123",
+        "123"
+      ],
+      [
+        "123",
+        "123"
+      ]
+    ]
   }
 ]
