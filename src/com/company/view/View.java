@@ -51,17 +51,45 @@ public class View {
         return br.readLine();
     }
 
+    public static void showNoTextAdventureToViewMask()  {
+
+        System.err.println("[2]: Es gibt noch keine TextAdventure's zum anzeigen! Erstelle doch eins ?: " +
+                "\nDu wirst ins Hauptmenü weitergeleitet .... .. .");
+
+    }
+
     // [2]: TextAdventure Übersicht anzeigen
     public static String showTextAdventureOverViewMask() throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         System.out.println("[2]: Sie möchten eine Übersicht aller TextAdventure's erhalten");
-        System.out.println("[2]: Tippe [weiter] um weitere 5 TextAdventures zu laden .. ");
         System.out.println("[2]: Tippe [wählen] um ein TextAdventure zu starten .. ");
-        System.out.println("[2]: Tippe [irgendwas anderes] um ins Hauptmenü zu gelangen ");
+        System.out.println("[2]: Tippe [irgendwas anderes] um weitere 5 TextAdventures zu laden .. ");
 
         return br.readLine();
 
+    }
+
+    public static String showNoMoreTextAdventureOverViewMask() throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("[2]: Sie möchten eine Übersicht aller TextAdventure's erhalten");
+        System.out.println("[2]: Es sind keine weiteren TextAdventure's vorhanden!");
+        System.out.println("[2]: Tippe [wählen] um ein TextAdventure zu starten .. ");
+        System.out.println("[2]: Tippe [exit] um ins Hauptmenü zu gelangen ");
+
+        return br.readLine();
+    }
+
+    public static String showSelectedTextedAdventure() throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("[2.1]: Sie möchten ein TextAdventure aus der Übersicht auswählen: ");
+        System.out.println("[2.1]: Bitte geben Sie den Titel aus der Übersicht ein: ");
+
+        return br.readLine();
     }
 
     // [3]: Eingeloggt Menü:
@@ -118,7 +146,7 @@ public class View {
                 locationNames[i][j] = br.readLine();
             }
         }
-        System.out.println("Möchten Sie Ihr TextAdventure freigeben?: (true) oder (false) ");
+        System.out.println("Möchten Sie Ihr TextAdventure freigeben?: [true] oder [false] ");
         //boolean freigabe setzen & jenachdem in Übersicht ausblenden
         boolean isActiveTextAdventure = parseBoolean(br.readLine());
         System.out.println("...... laden ... .. ...");
@@ -159,7 +187,9 @@ public class View {
     public static int showTextAdventureStatisticsMask() throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("[3.2]: TextAdventure Statistiken anzeigen: \n Tippe [1] um einzusehen wie viele Spieler dein TextAdventure schon gespielt haben:  \n  Tippe [2] um einzusehen wie viele Züge durchschnittlich auf deinem TextAdventure gemacht wurde: ");
+        System.out.println("[3.2]: TextAdventure Statistiken anzeigen: " +
+                "\nTippe [1] Um einzusehen wie viele Spieler dein TextAdventure schon gespielt haben:  " +
+                "\nTippe [2] Um einzusehen wie viele Züge durchschnittlich Spieler auf deinem TextAdventure gespielt haben: ");
         return parseInt(br.readLine());
     }
 
@@ -190,14 +220,18 @@ public class View {
     }
 
     //show start
-    public static void startTextAdventureText() throws IOException{
-        System.out.println("Das TextAdventure startet.... ... .. .");
+    public static void startTextAdventureText(String title) throws IOException{
+        System.out.println("\n--------------  [GAME]   --------------- \n");
+        System.out.println("Das TextAdventure: \t " + title + " \t startet.... ... .. . ");
         System.out.println("X: stellt deinen aktuellen Standort dar");
-        System.out.println("o: stellt die noch möglichen Standorte dar");
+        System.out.println("o: stellt die noch möglichen Standorte dar \n");
     }
 
     //draws the clear map with x & y
     public static void drawMap(int rows, int columns, int startPosX, int startPosY, String[][] locationNames) {
+        // Print current position --> startposition
+        System.out.println("Du befindest dich in : " + locationNames[startPosX][startPosY] + "\n");
+
         //prints the locationnames
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -216,16 +250,17 @@ public class View {
             }
             System.out.println();
         }
-        System.out.println("Herzlich Wilkommen in : " + locationNames[startPosX][startPosY]);
+        System.out.println();
     }
 
     //Richtung einlesen
     public static String showSelectedDirectionOutput() throws IOException {
-        System.out.println("In welche Himmelsrichtung möchtest du laufen?: \t [etwas anderes] zum beenden");
+        System.out.println("[GAME]: In welche Himmelsrichtung möchtest du laufen?: " +
+                "\n[GAME]: Tippe deine Himmelsrichtung: [norden] || [osten] || [westen] || [süden] ein!" +
+                "\n[GAME]: Tippe [etwas anderes] zum beenden");
         System.out.println("-------norden------");
         System.out.println("westen--------osten");
         System.out.println("-------süden-------");
-        System.out.println("Tippe deine Himmelsrichtung ein: ");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String direction = "";
@@ -238,7 +273,7 @@ public class View {
         }
         //links
         else if(direction.trim().equals("westen") || direction.trim().equals("Westen")){
-            System.out.println("Indiana Jones bewegt sich Richtung Westen: ....<-- ");
+            System.out.println("Indiana Jones läuft Richtung Westen: ....<-- ");
             return "Westen";
         }
         //unten
@@ -260,7 +295,7 @@ public class View {
             System.out.println("Danke dass du TextAdventure gespielt hast...");
             return "exit";
         } else {
-            System.out.println("Es tut mir leid, du bist am Rand der Karte angekommen. Der Weg nach: " + input + " endet hier ... .. .");
+            System.out.println("[GAME]: Es tut mir leid, du bist am Rand der Karte angekommen. Der Weg nach: " + input + " endet hier ... .. .");
         }
         return "";
     }
@@ -305,8 +340,8 @@ public class View {
 
     //SideStuff:
 
-    public String showMapSize(int rows, int columns){
-        return "Das Spielfeld hat: " + rows + " Reihen & " + columns + " Zeilen";
+    public static String showMapSize(int rows, int columns){
+        return "Spielfeld : " + rows + " Reihen & " + columns + " Spalten groß";
     }
 
     public static void showSuccessFullAdded(String titel){

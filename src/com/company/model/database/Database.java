@@ -35,8 +35,10 @@ public class Database {
             adventures.add(adventure);
             JsonWriter.writeAdventureFileToSystem(adventures);
         } else {
-            if (adventures.size() != 1) {
-                adventure.setID(adventures.size() + 1);
+            if (adventures.size() == 1) {
+                adventure.setID(1);
+            } else {
+            adventure.setID(adventures.size()+1);
             }
             adventures.add(adventure);
             JsonWriter.writeAdventureFileToSystem(adventures);
@@ -72,15 +74,15 @@ public class Database {
 
         adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
 
-        boolean textAdventureExists = false;
+        if(adventures == null)
+            return false;
 
         for (Adventure value : adventures) {
             if (title.equals(value.getTitle())) {
-                textAdventureExists = true;
-                break;
+                return true;
             }
         }
-        return textAdventureExists;
+        return true;
     }
 
     //[2]: Overview
@@ -89,8 +91,7 @@ public class Database {
 
         adventures = JsonReader.readExistingTextAdventuresFileFromSystem();
 
-
-        if (!adventures.isEmpty()) {
+        if (adventures != null) {
             return adventures;
         }
 

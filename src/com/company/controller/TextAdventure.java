@@ -74,36 +74,88 @@ public class TextAdventure {
     // [2] geklickt: Übersicht anzeigen lassen --< TextAdventure starten
     private void handleTextAdventureOverviewMask() throws IOException {
         ArrayList<Adventure> adventures = Database.getInstance().loadTextAdventuresList();
-        int i = 0;      // 0 because List starts at 0
-        int pageSize = 5;       // 4 because List starts at 0
+
+        final int RESULTS_PER_PAGE = 5;
+        int titleCounter = 1;
         int pageCount = 1;
 
-        if (adventures != null) {
-            pageCount = (adventures.size() / 5) + 1;
+        if(adventures != null) {
 
+            if(adventures.size() > 5)
+                pageCount = adventures.size() / 5;
+
+            for (int x = 0; x <= pageCount; x++) {
+                int to = pageCount * RESULTS_PER_PAGE;
+                int from = to - RESULTS_PER_PAGE;
+
+                for (int i = from; i < to; i++) {
+                    ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(from, to));
+
+                    System.out.println("TextAdventure Nr. [" + titleCounter++ + "] " + "Titel: " + newadventures.get(i).getTitle() + "\t " + View.showMapSize(newadventures.get(i).getRows(), newadventures.get(i).getColums()));
+
+                }
+
+                handleTextAdventureOverViewInput(View.showTextAdventureOverViewMask());
+            }
+
+            handleTextAdventureOverViewInput(View.showNoMoreTextAdventureOverViewMask());
+
+
+            // try to make Overview with Rest Overview ...
+/*
+        int i = 0;      // 0 because List starts at 0
+        int pageSize = 5;       // 4 because List starts at 0
+        int pageCount = 0;
+        int restAdventures = 0;
+   //     int titleCounter = 1;
+
+        if (adventures != null) {
+            // calculate Pages
+            if(adventures.size() > 5)
+            pageCount = adventures.size() / 5;
+
+            if((adventures.size() % 5) != 0) {
+                restAdventures = adventures.size() % 5;
+                pageCount++;
+            }
 
             // Creates Overview site for the count o
             for (int x = 0; x <= pageCount; x++) {
 
-                ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(i, pageSize));
-                for (int y = 0; y < 5; y++) {
-                    System.out.println(newadventures.get(y).getTitle());
-                }
-                System.out.println(newadventures.get(i).getTitle());
-                pageSize += 5;
-                i += 5;
-                if (i == 5) {
-                    String input = View.showTextAdventureOverViewMask();
-                    if (input.equals("weiter")) {
 
-                    } else if (input.equals("wählen")) {
-
-                    } else {
-                        startTextAdventure();
+                if(x < pageCount && restAdventures == 0) {
+                    ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(i, pageSize));
+                    for (int y = 0; y < 5; y++) {
+                        System.out.println("TextAdventure Nr. [" + titleCounter++ + "] " + "Titel: " + newadventures.get(y).getTitle() + "\t " + View.showMapSize(newadventures.get(y).getRows(), newadventures.get(y).getColums()));
                     }
                 }
-            }
-        } else {
+                if((x == pageCount || x == 0) && restAdventures != 0){
+
+                    ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(0, restAdventures));
+
+
+                }
+                else {
+                    handleTextAdventureOverViewInput(View.showNoMoreTextAdventureOverViewMask());
+                }
+                pageSize += 5;
+                i += 5;
+
+                    handleTextAdventureOverViewInput(View.showTextAdventureOverViewMask());
+
+            } */
+        }
+        else {
+            View.showNoTextAdventureToViewMask();
+            startTextAdventure();
+        }
+    }
+
+    private void handleTextAdventureOverViewInput(String input) throws IOException {
+        if(input.equals("wählen")){
+            String selectedTextAdventureTitel = View.showSelectedTextedAdventure();
+            handleSearchTextAdventureMask(selectedTextAdventureTitel);
+        } else if(input.equals("exit")) {
             startTextAdventure();
         }
     }
@@ -141,10 +193,8 @@ public class TextAdventure {
             View.drawMap(createAdventure.getRows(), createAdventure.getColums(), createAdventure.getStartPosX(), createAdventure.getStartPosY(), createAdventure.getLocationNames());
 
             //Check if textadventure with title is already existing
-
           /*  if(Database.getInstance().checkIfTextAdventureIsExisting(createAdventure.getTitle())) {
-                System.err.println("TextAdventure is already existing");
-            }*/
+                System.err.println("TextAdventure is already existing"); }*/
 
             Database.getInstance().addTextAdventure(createAdventure);
             handleSearchTextAdventureMask(createAdventure.getTitle());
@@ -216,7 +266,7 @@ public class TextAdventure {
 
     private void startToPlayTextAdventure(boolean wantToPlay, Adventure adventure) throws IOException {
         if (wantToPlay) {
-            View.startTextAdventureText();
+            View.startTextAdventureText(adventure.getTitle());
             View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
             String direction = "";
             while (!direction.equals("exit")) {
@@ -237,7 +287,7 @@ public class TextAdventure {
 
         } else if (richtung.equals("Westen") && adventure.getStartPosY() != 0) { //links
 
-            adventure.setStartPosY(adventure.getStartPosY() - 1);
+            adventure.setStartPosY(adventure.getStartPosY() - 1) ;
             View.drawMap(adventure.getRows(), adventure.getColums(), adventure.getStartPosX(), adventure.getStartPosY(), adventure.getLocationNames());
             adventure.incrementCountpermove();
 
