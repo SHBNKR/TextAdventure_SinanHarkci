@@ -78,6 +78,8 @@ public class TextAdventure {
         final int RESULTS_PER_PAGE = 5;
         int titleCounter = 1;
         int pageCount = 1;
+        int startPos = 0;      // 0 because List starts at 0
+        int pageSize = 5;       // 4 because List starts at 0
 
         if(adventures != null) {
             if(adventures.size() < 5) {
@@ -88,16 +90,18 @@ public class TextAdventure {
             if(adventures.size() > 5)
                 pageCount = adventures.size() / 5;
 
-            for (int x = 0; x <= pageCount; x++) {
+            for (int x = 0; x < pageCount; x++) {
                 int to = pageCount * RESULTS_PER_PAGE;
                 int from = to - RESULTS_PER_PAGE;
 
                 for (int i = from; i < to; i++) {
-                    ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(from, to));
+                    ArrayList<Adventure> newadventures = new ArrayList<>(adventures.subList(startPos, pageSize));
 
                     System.out.println("TextAdventure Nr. [" + titleCounter++ + "] " + "Titel: " + newadventures.get(i).getTitle() + "\t " + View.showMapSize(newadventures.get(i).getRows(), newadventures.get(i).getColums()));
 
                 }
+                pageSize += 5;
+                startPos += 5;
 
                 handleTextAdventureOverViewInput(View.showTextAdventureOverViewMask());
             }

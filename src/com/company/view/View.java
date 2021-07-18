@@ -76,7 +76,7 @@ public class View {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("[2]: Sie möchten eine Übersicht aller TextAdventure's erhalten");
-        System.out.println("[2]: Es sind keine weiteren TextAdventure's vorhanden!");
+        System.out.println("[2]: Es sind keine weiteren 5 TextAdventure's vorhanden um eine Übersicht darzustellen!");
         System.out.println("[2]: Tippe [wählen] um ein TextAdventure zu starten .. ");
         System.out.println("[2]: Tippe [irgendwas anders] um ins Hauptmenü zu gelangen ");
 
